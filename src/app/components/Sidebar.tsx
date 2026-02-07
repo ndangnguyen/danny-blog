@@ -11,7 +11,12 @@ interface ContextMenuState {
   itemSlug: string;
 }
 
-export default function Sidebar() {
+interface SidebarProps {
+  mobileOpen: boolean;
+  setMobileOpen: (open: boolean) => void;
+}
+
+export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
   const pathname = usePathname();
   const [openFolders, setOpenFolders] = useState<Record<string, boolean>>({
     notes: true,
@@ -62,8 +67,8 @@ export default function Sidebar() {
 
   return (
     <>
-      <aside className="sidebar hidden md:flex">
-        {/* Header Section from Image */}
+      <aside className={`sidebar fixed inset-y-0 left-0 z-50 md:relative md:flex transition-transform duration-300 transform ${mobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}>
+        {/* Header Section */}
         <div className="sidebar-header">
           <div className="sidebar-header-left">
             <div className="w-6 h-6 rounded-full bg-gray-500 overflow-hidden flex-shrink-0">
@@ -77,8 +82,8 @@ export default function Sidebar() {
             <span className="opacity-30 text-xs">/ v1.0</span>
           </div>
           <div className="sidebar-header-right">
-            <span className="cursor-pointer hover:text-white">↕</span>
-            <span className="cursor-pointer hover:text-white">🗄</span>
+            <button onClick={() => setMobileOpen(false)} className="md:hidden text-lg">×</button>
+            <span className="hidden md:inline cursor-pointer hover:text-white">↕</span>
           </div>
         </div>
         
@@ -93,6 +98,8 @@ export default function Sidebar() {
                   if (item.isFolder) {
                     e.preventDefault();
                     toggleFolder(item.slug);
+                  } else {
+                    setMobileOpen(false);
                   }
                 }}
               >
@@ -103,12 +110,13 @@ export default function Sidebar() {
                 <span className="font-medium uppercase text-[12px]">{item.label}</span>
               </Link>
 
-              {/* Sub-items (only for Notes for now) */}
+              {/* Sub-items */}
               {item.slug === "notes" && openFolders.notes && (
                 <div className="ml-4 border-l border-border/50 my-1">
                   <Link 
                     href="/notes/building-with-openclaw"
                     className="sidebar-item !py-1 text-[11px] opacity-60 hover:opacity-100"
+                    onClick={() => setMobileOpen(false)}
                     onContextMenu={(e) => handleContextMenu(e, "building-with-openclaw")}
                   >
                     <span>📄</span> building-with-openclaw.md
@@ -116,6 +124,7 @@ export default function Sidebar() {
                   <Link 
                     href="/notes/lumiled-journey"
                     className="sidebar-item !py-1 text-[11px] opacity-60 hover:opacity-100"
+                    onClick={() => setMobileOpen(false)}
                     onContextMenu={(e) => handleContextMenu(e, "lumiled-journey")}
                   >
                     <span>📄</span> lumiled-journey.md
@@ -134,6 +143,14 @@ export default function Sidebar() {
           />
         </div>
       </aside>
+
+      {/* Overlay for mobile */}
+      {mobileOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
 
       {/* Custom Context Menu */}
       {contextMenu.visible && (
