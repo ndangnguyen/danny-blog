@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTabs } from "../context/TabContext";
+import { photoData } from "../data/photos";
 
 interface ContextMenuState {
   x: number;
@@ -20,13 +20,14 @@ interface SidebarProps {
 
 export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
   const pathname = usePathname();
-  const { openTab } = useTabs();
+  const { openTab, replaceTab } = useTabs();
   const [openFolders, setOpenFolders] = useState<Record<string, boolean>>({
     notes: true,
     stories: false,
     newsletter: false,
     photos: false,
   });
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [contextMenu, setContextMenu] = useState<ContextMenuState>({
     x: 0,
@@ -71,10 +72,34 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
   ];
 
   const notes = [
+    { title: "solid-principles.md", slug: "solid-principles", path: "/notes/solid-principles" },
+    { title: "dry-kiss-yagni.md", slug: "dry-kiss-yagni", path: "/notes/dry-kiss-yagni" },
+    { title: "clean-architecture.md", slug: "clean-architecture", path: "/notes/clean-architecture" },
+    { title: "design-patterns.md", slug: "design-patterns", path: "/notes/design-patterns" },
+    { title: "flutter-state-management.md", slug: "flutter-state-management", path: "/notes/flutter-state-management" },
     { title: "flutter-rendering-deep-dive.md", slug: "flutter-rendering-deep-dive", path: "/notes/flutter-rendering-deep-dive" },
-    { title: "building-with-openclaw.md", slug: "building-with-openclaw", path: "/notes/building-with-openclaw" },
-    { title: "lumiled-journey.md", slug: "lumiled-journey", path: "/notes/lumiled-journey" },
+    { title: "flutter-custom-painter.md", slug: "flutter-custom-painter", path: "/notes/flutter-custom-painter" },
+    { title: "flutter-performance-tips.md", slug: "flutter-performance-tips", path: "/notes/flutter-performance-tips" },
   ];
+
+  const allSearchableItems = [
+    ...navItems.filter((i) => !i.isFolder).map((i) => ({ title: `${i.label}.md`, path: i.path })),
+    ...notes.map((n) => ({ title: n.title, path: n.path })),
+    ...photoData.flatMap((y) =>
+      y.photos.map((p) => ({ title: p.filename, path: `/photos/${p.year}/${p.slug}` }))
+    ),
+  ];
+
+  const searchResults = searchQuery.trim()
+    ? allSearchableItems.filter((item) =>
+      item.title.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    : [];
+
+  // Check if a path is active (exact match or starts with for nested routes)
+  const isActive = (path: string) => pathname === path;
+  const isPhotoActive = (year: number, slug: string) =>
+    pathname === `/photos/${year}/${slug}`;
 
   return (
     <>
@@ -82,9 +107,9 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
         <div className="sidebar-header">
           <div className="sidebar-header-left">
             <div className="w-6 h-6 rounded-full bg-gray-500 overflow-hidden flex-shrink-0">
-              <img 
-                src="https://api.dicebear.com/7.x/avataaars/svg?seed=Danny" 
-                alt="Avatar" 
+              <img
+                src="https://api.dicebear.com/7.x/avataaars/svg?seed=Danny"
+                alt="Avatar"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -96,18 +121,20 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
             <span className="hidden md:inline cursor-pointer hover:text-white">↕</span>
           </div>
         </div>
-        
+
         <nav className="flex-1 overflow-y-auto pt-2">
           {navItems.map((item) => (
             <div key={item.label}>
-              <div 
-                className={`sidebar-item group ${pathname === item.path ? "active" : ""}`}
+              <div
+                className={`sidebar-item group ${isActive(item.path) ? "active" : ""}`}
                 onContextMenu={(e) => handleContextMenu(e, item.label, item.path)}
                 onClick={() => {
                   if (item.isFolder) {
                     toggleFolder(item.slug);
+                    replaceTab({ title: item.label, path: item.path });
+                    setMobileOpen(false);
                   } else {
-                    openTab({ title: `${item.label}.md`, path: item.path });
+                    replaceTab({ title: `${item.label}.md`, path: item.path });
                     setMobileOpen(false);
                   }
                 }}
@@ -119,19 +146,74 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
                 <span className="font-medium uppercase text-[12px]">{item.label}</span>
               </div>
 
+              {/* Notes children */}
               {item.slug === "notes" && openFolders.notes && (
                 <div className="ml-4 border-l border-border/50 my-1">
                   {notes.map((note) => (
-                    <div 
+                    <div
                       key={note.slug}
                       onClick={() => {
-                        openTab({ title: note.title, path: note.path });
+                        replaceTab({ title: note.title, path: note.path });
                         setMobileOpen(false);
                       }}
-                      className={`sidebar-item !py-1 text-[11px] opacity-60 hover:opacity-100 ${pathname === note.path ? "!opacity-100 text-white font-bold bg-white/5" : ""}`}
+                      className={`sidebar-item !py-1 text-[10px] opacity-60 hover:opacity-100 ${isActive(note.path) ? "!opacity-100 text-white font-bold bg-white/5" : ""}`}
                       onContextMenu={(e) => handleContextMenu(e, note.title, note.path)}
                     >
                       <span>📄</span> {note.title}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Photos children - year folders and individual photos */}
+              {item.slug === "photos" && openFolders.photos && (
+                <div className="ml-4 border-l border-border/50 my-1">
+                  {photoData.map((yearGroup) => (
+                    <div key={yearGroup.year}>
+                      {/* Year folder */}
+                      <div
+                        className={`sidebar-item !py-1 text-[10px] opacity-60 hover:opacity-100 ${isActive(`/photos/${yearGroup.year}`)
+                          ? "!opacity-100 text-white font-bold bg-white/5"
+                          : ""
+                          }`}
+                        onClick={() => {
+                          toggleFolder(`photos-${yearGroup.year}`);
+                        }}
+                      >
+                        <span className={`text-[8px] transition-transform inline-block ${openFolders[`photos-${yearGroup.year}`] ? "rotate-90" : ""}`}>
+                          ▶
+                        </span>
+                        <span>📁</span>
+                        <span>{yearGroup.year}</span>
+                      </div>
+
+                      {/* Photos in that year */}
+                      {openFolders[`photos-${yearGroup.year}`] && (
+                        <div className="ml-4 border-l border-border/30 my-0.5">
+                          {yearGroup.photos.map((photo) => (
+                            <div
+                              key={photo.slug}
+                              onClick={() => {
+                                replaceTab({
+                                  title: photo.filename,
+                                  path: `/photos/${photo.year}/${photo.slug}`,
+                                });
+                                setMobileOpen(false);
+                              }}
+                              className={`sidebar-item !py-0.5 text-[10px] opacity-50 hover:opacity-100 ${isPhotoActive(photo.year, photo.slug)
+                                ? "!opacity-100 text-white font-bold bg-white/5"
+                                : ""
+                                }`}
+                              onContextMenu={(e) =>
+                                handleContextMenu(e, photo.filename, `/photos/${photo.year}/${photo.slug}`)
+                              }
+                            >
+                              <span>🖼️</span>
+                              <span className="truncate">{photo.filename}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -141,27 +223,51 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
         </nav>
 
         <div className="p-4 border-t border-border mt-auto">
-          <input 
-            type="text" 
-            placeholder="Search..." 
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full bg-black border border-border rounded px-2 py-1 text-xs outline-none focus:border-white/20 transition-colors"
           />
+          {searchQuery.trim() && (
+            <div className="mt-2 space-y-0.5 max-h-40 overflow-y-auto">
+              {searchResults.length > 0 ? (
+                searchResults.map((item) => (
+                  <div
+                    key={item.path}
+                    onClick={() => {
+                      replaceTab({ title: item.title, path: item.path });
+                      setSearchQuery("");
+                      setMobileOpen(false);
+                    }}
+                    className="flex items-center gap-2 px-2 py-1.5 text-[10px] text-white/60 hover:text-white hover:bg-white/5 rounded cursor-pointer transition-colors"
+                  >
+                    <span>📄</span>
+                    <span className="truncate">{item.title}</span>
+                  </div>
+                ))
+              ) : (
+                <div className="px-2 py-1.5 text-[10px] text-white/30 italic">No results found</div>
+              )}
+            </div>
+          )}
         </div>
       </aside>
 
       {mobileOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/50 z-40 md:hidden"
           onClick={() => setMobileOpen(false)}
         />
       )}
 
       {contextMenu.visible && (
-        <div 
+        <div
           className="context-menu"
           style={{ top: contextMenu.y, left: contextMenu.x }}
         >
-          <div 
+          <div
             className="context-menu-item"
             onClick={() => {
               openTab({ title: contextMenu.itemSlug, path: contextMenu.itemPath });
@@ -170,7 +276,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
           >
             Open in New Tab
           </div>
-          <div 
+          <div
             className="context-menu-item border-t border-border mt-1"
             onClick={() => {
               navigator.clipboard.writeText(window.location.origin + contextMenu.itemPath);

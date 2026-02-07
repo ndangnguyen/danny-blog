@@ -1,0 +1,36 @@
+---
+title: "Flutter State Management: Riverpod vs Bloc"
+date: "2026-02-07"
+excerpt: "So sánh chi tiết hai giải pháp State Management phổ biến nhất trong Flutter: Riverpod và Bloc."
+---
+
+State Management là một trong những chủ đề quan trọng nhất khi xây dựng ứng dụng Flutter. Trong bài viết này, mình sẽ so sánh chi tiết hai giải pháp được cộng đồng Flutter tin dùng nhất: **Riverpod** và **Bloc**.
+
+## Tại sao State Management lại quan trọng?
+
+Khi ứng dụng Flutter của bạn phát triển, việc quản lý state bằng `setState()` đơn thuần sẽ nhanh chóng trở nên hỗn loạn. Bạn cần một kiến trúc rõ ràng để quản lý dữ liệu, tách biệt logic và UI.
+
+## Riverpod — Sự tiến hóa của Provider
+
+Riverpod là thế hệ tiếp theo của Provider, được tạo bởi Remi Rousselet. Điểm nổi bật:
+
+- **Compile-safe**: Không còn lỗi runtime do thiếu Provider.
+- **Không phụ thuộc BuildContext**: Có thể truy cập state từ bất kỳ đâu.
+- **Auto-dispose**: Tự động giải phóng tài nguyên khi không còn listener.
+- **Code generation**: Hỗ trợ `@riverpod` annotation giúp giảm boilerplate.
+
+## Bloc — Kiến trúc rõ ràng cho enterprise
+
+Bloc (Business Logic Component) tuân theo pattern Event → State:
+
+- **Tách biệt hoàn toàn**: Event, State, và Logic nằm ở các file riêng.
+- **Testable**: Dễ dàng viết unit test cho từng Bloc.
+- **Predictable**: Mỗi Event chỉ tạo ra một State mới.
+- **DevTools**: Có công cụ debug mạnh mẽ.
+
+## Khi nào nên dùng cái nào?
+
+- **Riverpod**: Phù hợp cho dự án cá nhân, startup, hoặc khi bạn muốn sự linh hoạt và ít boilerplate.
+- **Bloc**: Phù hợp cho dự án enterprise, team lớn, hoặc khi bạn cần kiến trúc nghiêm ngặt và dễ maintain.
+
+Cá nhân mình hiện tại dùng Riverpod cho LumiLED vì tính linh hoạt của nó. Nhưng nếu làm việc trong team lớn, mình sẽ chọn Bloc.

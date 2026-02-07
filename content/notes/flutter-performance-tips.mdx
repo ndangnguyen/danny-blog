@@ -1,0 +1,56 @@
+---
+title: "Flutter Performance: 10 Tips Tối Ưu Hiệu Năng"
+date: "2026-02-04"
+excerpt: "Tổng hợp 10 kỹ thuật tối ưu hiệu năng Flutter mà mình đã áp dụng thực tế trong LumiLED."
+---
+
+Hiệu năng là yếu tố quyết định trải nghiệm người dùng. Sau khi xây dựng LumiLED — một ứng dụng Flutter render hàng ngàn pixel LED ở 60fps — mình đã tích lũy được nhiều bài học quý giá về tối ưu hiệu năng.
+
+## 1. Sử dụng `const` ở mọi nơi có thể
+
+Widget với `const` constructor sẽ được Flutter bỏ qua trong quá trình rebuild. Đây là cách tối ưu đơn giản nhất nhưng hiệu quả nhất.
+
+## 2. ListView.builder thay vì ListView
+
+`ListView.builder` chỉ render các item hiện đang hiển thị trên màn hình. Với danh sách 1000 items, sự khác biệt là rất lớn.
+
+## 3. RepaintBoundary cho animation
+
+Khi một phần nhỏ của màn hình thay đổi liên tục (như animation), hãy wrap nó trong `RepaintBoundary` để Flutter không phải vẽ lại toàn bộ cây Widget.
+
+## 4. Tránh `setState` ở đầu cây Widget
+
+Gọi `setState` trên widget gốc sẽ rebuild toàn bộ cây con. Hãy đẩy state xuống widget con nhỏ nhất có thể, hoặc sử dụng state management.
+
+## 5. Cache expensive computations
+
+Dùng `ValueNotifier`, `Selector`, hoặc `useMemoized` (với flutter_hooks) để tránh tính toán lại những giá trị tốn kém.
+
+## 6. Image optimization
+
+- Sử dụng `CachedNetworkImage` cho ảnh từ internet.
+- Resize ảnh về đúng kích thước hiển thị.
+- Sử dụng `precacheImage` cho ảnh quan trọng.
+
+## 7. Isolate cho tác vụ nặng
+
+Dart chạy trên single thread. Các tác vụ nặng như xử lý ảnh, parse JSON lớn nên được chuyển sang `Isolate` hoặc `compute()`.
+
+## 8. Lazy loading và Pagination
+
+Không load tất cả data cùng lúc. Sử dụng pagination hoặc infinite scroll để load dần khi người dùng cuộn.
+
+## 9. Profile trước khi optimize
+
+Đừng optimize mù quáng. Sử dụng Flutter DevTools để xác định bottleneck thực sự:
+- **Performance overlay**: Hiển thị frame time.
+- **Widget inspector**: Xem rebuild count.
+- **Memory tab**: Phát hiện memory leak.
+
+## 10. Shader warm-up
+
+Hiện tượng "jank" khi mở app lần đầu thường do shader compilation. Sử dụng `--cache-sksl` để pre-compile shader hoặc chuyển sang **Impeller** (mặc định trên iOS từ Flutter 3.16).
+
+---
+
+Hiệu năng không phải là thứ bạn thêm vào cuối cùng, mà là thứ bạn nghĩ đến từ đầu. Hãy profile thường xuyên và optimize có chủ đích.

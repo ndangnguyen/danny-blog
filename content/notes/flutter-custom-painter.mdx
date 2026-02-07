@@ -1,0 +1,41 @@
+---
+title: "Flutter Custom Painter: Vẽ Mọi Thứ Bạn Muốn"
+date: "2026-02-05"
+excerpt: "Hướng dẫn sử dụng CustomPainter trong Flutter để tạo ra những hiệu ứng đồ hoạ ấn tượng."
+---
+
+Khi các Widget có sẵn của Flutter không đủ để thể hiện ý tưởng thiết kế, **CustomPainter** chính là vũ khí bí mật của bạn. Đây là cách LumiLED tạo ra hiệu ứng LED phát sáng thực tế.
+
+## CustomPainter là gì?
+
+`CustomPainter` cho phép bạn vẽ trực tiếp lên Canvas bằng các API đồ hoạ cấp thấp. Bạn có thể vẽ đường thẳng, hình tròn, gradient, path phức tạp, và thậm chí cả text.
+
+## Cấu trúc cơ bản
+
+Một CustomPainter bao gồm hai method cần implement:
+
+- **`paint(Canvas canvas, Size size)`**: Nơi bạn thực hiện các lệnh vẽ.
+- **`shouldRepaint()`**: Quyết định khi nào cần vẽ lại.
+
+## Các kỹ thuật quan trọng
+
+### 1. Vẽ hình cơ bản
+Canvas cung cấp các method như `drawCircle`, `drawRect`, `drawLine`, `drawPath` để vẽ các hình cơ bản.
+
+### 2. Gradient và Shader
+Sử dụng `Paint()..shader` để tạo gradient tuyến tính, hướng tâm, hoặc sweep gradient.
+
+### 3. Compositing với BlendMode
+`BlendMode` cho phép bạn kết hợp nhiều lớp vẽ với nhau theo các cách khác nhau — tương tự layer blending trong Photoshop.
+
+### 4. Animation với CustomPainter
+Kết hợp `AnimationController` với `CustomPainter` để tạo ra các hiệu ứng động mượt mà ở 60fps.
+
+## Tips từ thực tế
+
+- **Luôn cache Paint objects**: Tạo `Paint` trong constructor, không phải trong `paint()`.
+- **Sử dụng `shouldRepaint` đúng cách**: Return `false` khi data không đổi.
+- **`RepaintBoundary`**: Wrap CustomPaint trong `RepaintBoundary` để tránh vẽ lại không cần thiết.
+- **Tách nhỏ painter**: Nếu drawing logic phức tạp, chia thành nhiều layer.
+
+CustomPainter là công cụ mạnh mẽ nhưng cần sử dụng có trách nhiệm. Hãy nhớ: Widget vẫn là lựa chọn đầu tiên, CustomPainter là cho những lúc bạn thực sự cần kiểm soát từng pixel.

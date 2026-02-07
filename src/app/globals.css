@@ -69,12 +69,12 @@ body {
 .sidebar-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 16px;
+  gap: 8px;
+  padding: 5px 16px;
   cursor: pointer;
   color: var(--text-muted);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 12px;
   letter-spacing: 0.02em;
   transition: all 0.15s ease;
 }
@@ -106,12 +106,14 @@ body {
   position: absolute;
   left: 0;
   top: 0;
+  bottom: 0;
   width: 45px;
   padding: 32px 0;
   text-align: right;
   color: var(--line-numbers);
   user-select: none;
   font-size: 11px;
+  overflow: hidden;
 }
 
 .content-area {
@@ -127,12 +129,26 @@ body {
   }
 }
 
+/* Photos-specific content: no padding, full-width */
+.content-area-photos {
+  padding: 0;
+  max-width: 100%;
+  margin: 0;
+}
+
+@media (min-width: 1024px) {
+  .content-area-photos {
+    margin-left: 0;
+    padding: 0;
+  }
+}
+
 /* Context Menu */
 .context-menu {
   position: fixed;
   background: var(--context-menu-bg);
   border: 1px solid var(--border);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   border-radius: 6px;
   padding: 4px;
   z-index: 1000;
@@ -151,8 +167,174 @@ body {
   background: #333;
 }
 
+/* ========= Photo Grid (Masonry) ========= */
+.photo-grid {
+  columns: 2;
+  column-gap: 4px;
+  padding: 0;
+}
+
+@media (min-width: 640px) {
+  .photo-grid {
+    columns: 3;
+  }
+}
+
+@media (min-width: 1024px) {
+  .photo-grid {
+    columns: 4;
+    column-gap: 5px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .photo-grid {
+    columns: 5;
+  }
+}
+
+.photo-grid-item {
+  break-inside: avoid;
+  margin-bottom: 4px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 2px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.photo-grid-item:hover {
+  z-index: 2;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15);
+}
+
+.photo-grid-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.photo-grid-item:hover .photo-grid-img {
+  transform: scale(1.03);
+  filter: brightness(0.85);
+}
+
+.photo-grid-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 10px 8px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: flex-end;
+}
+
+.photo-grid-item:hover .photo-grid-overlay {
+  opacity: 1;
+}
+
+/* ========= Photo Viewer (Single Photo) ========= */
+.photo-viewer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+  padding: 0;
+}
+
+.photo-viewer-nav {
+  position: fixed;
+  top: 50%;
+  left: 280px;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 20;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .photo-viewer-nav {
+    left: 0;
+  }
+}
+
+.photo-nav-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  cursor: pointer;
+  pointer-events: all;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+  opacity: 0.5;
+}
+
+.photo-nav-btn:hover:not(:disabled) {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.photo-nav-btn:disabled {
+  opacity: 0.15;
+  cursor: default;
+}
+
+.photo-viewer-frame {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.photo-viewer-img {
+  width: 100%;
+  height: auto;
+  max-height: calc(100vh - 120px);
+  object-fit: contain;
+  display: block;
+}
+
+.photo-viewer-info {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 12px 16px;
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: auto;
+}
+
 /* Custom scrollbar */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #222; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #333; }
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #222;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}

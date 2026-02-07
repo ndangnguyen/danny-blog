@@ -12,6 +12,7 @@ interface TabContextType {
   tabs: Tab[];
   activePath: string;
   openTab: (tab: Tab) => void;
+  replaceTab: (tab: Tab) => void;
   closeTab: (path: string) => void;
 }
 
@@ -21,18 +22,26 @@ export function TabProvider({ children }: { children: React.ReactNode }) {
   const [tabs, setTabs] = useState<Tab[]>([]);
   const pathname = usePathname();
   const router = useRouter();
+  const replacingRef = React.useRef(false);
 
   // Helper to get title from path
   const getTitleFromPath = (path: string) => {
     if (path === "/") return "README.md";
     const parts = path.split("/");
     let name = parts[parts.length - 1];
+    if (path === "/photos") return "Photos";
+    if (path.startsWith("/photos/") && parts.length === 3) return parts[2]; // year
+    if (path.startsWith("/photos/") && parts.length === 4) return `${name}.jpg`;
     if (path.startsWith("/notes/")) return `${name}.md`;
     return name;
   };
 
   // Ensure current page is always in tabs
   useEffect(() => {
+    if (replacingRef.current) {
+      replacingRef.current = false;
+      return;
+    }
     const title = getTitleFromPath(pathname);
     setTabs((prev) => {
       if (prev.find((t) => t.path === pathname)) return prev;
@@ -47,10 +56,18 @@ export function TabProvider({ children }: { children: React.ReactNode }) {
     router.push(tab.path);
   };
 
+  const replaceTab = (tab: Tab) => {
+    replacingRef.current = true;
+    setTabs((prev) =>
+      prev.map((t) => (t.path === pathname ? { title: tab.title, path: tab.path } : t))
+    );
+    router.push(tab.path);
+  };
+
   const closeTab = (path: string) => {
     const newTabs = tabs.filter((t) => t.path !== path);
     setTabs(newTabs);
-    
+
     // If we closed the active tab, navigate to the last one
     if (path === pathname && newTabs.length > 0) {
       router.push(newTabs[newTabs.length - 1].path);
@@ -60,7 +77,7 @@ export function TabProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <TabContext.Provider value={{ tabs, activePath: pathname, openTab, closeTab }}>
+    <TabContext.Provider value={{ tabs, activePath: pathname, openTab, replaceTab, closeTab }}>
       {children}
     </TabContext.Provider>
   );
