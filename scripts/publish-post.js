@@ -43,6 +43,21 @@ function publishPost() {
                 jsxContent += `  <li>${text}</li>\n`;
             });
             jsxContent += '</ul>\n\n';
+        } else if (p.startsWith('![')) {
+            const match = p.match(/!\[(.*?)\]\((.*?)\)/);
+            if (match) {
+                const alt = match[1];
+                const url = match[2];
+                jsxContent += `        <figure className="space-y-2">\n          <img src="${url}" alt="${alt}" className="rounded-lg border border-border w-full h-auto shadow-sm" />\n`;
+                
+                // Check if next line is a caption
+                const lines = p.split('\n');
+                if (lines[1] && lines[1].startsWith('*') && lines[1].endsWith('*')) {
+                    const caption = lines[1].substring(1, lines[1].length - 1);
+                    jsxContent += `          <figcaption className="text-center text-sm text-text-muted">${caption}</figcaption>\n`;
+                }
+                jsxContent += '        </figure>\n\n';
+            }
         } else if (p.startsWith('# ')) {
             jsxContent += `<h2 className="text-xl font-bold">${p.substring(2)}</h2>\n\n`;
         } else if (p.startsWith('## ')) {
