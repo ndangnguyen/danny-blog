@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Danny's Blog | Digital Garden",
-  description: "Senior Software Developer & AI Enthusiast",
+  title: "Danny / v1.0",
+  description: "Senior Software Developer & AI Architect",
 };
 
 export default function RootLayout({
@@ -13,36 +13,66 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased selection:bg-primary selection:text-white">
-        <header className="fixed top-0 w-full z-50 glass">
-          <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            <div className="text-xl font-bold tracking-tighter text-primary">
-              DANNY<span className="text-foreground">.</span>
+      <body className="antialiased">
+        <div className="editor-layout">
+          {/* Sidebar */}
+          <aside className="sidebar hidden md:flex">
+            <div className="p-4 border-b border-border flex items-center gap-2 font-bold text-xs uppercase tracking-widest">
+              <span>Danny Nguyen</span>
+              <span className="text-line-numbers">/ v1.0</span>
             </div>
-            <div className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground hover:text-foreground">
-              <a href="/" className="hover:text-primary transition-colors">Home</a>
-              <a href="/projects" className="hover:text-primary transition-colors">Projects</a>
-              <a href="/blog" className="hover:text-primary transition-colors">Blog</a>
-              <a href="/about" className="hover:text-primary transition-colors">About</a>
+            <nav className="flex-1 p-2 space-y-1">
+              <a href="/" className="block p-2 hover:bg-white rounded transition-colors text-sm no-underline font-medium">README.md</a>
+              <a href="/notes" className="block p-2 hover:bg-white rounded transition-colors text-sm no-underline text-text-muted">Notes</a>
+              <a href="/projects" className="block p-2 hover:bg-white rounded transition-colors text-sm no-underline text-text-muted">Projects</a>
+              <a href="/newsletter" className="block p-2 hover:bg-white rounded transition-colors text-sm no-underline text-text-muted">Newsletter</a>
+            </nav>
+            <div className="p-4 border-t border-border">
+              <input 
+                type="text" 
+                placeholder="Filter..." 
+                className="w-full bg-white border border-border rounded px-2 py-1 text-xs outline-none"
+              />
             </div>
-            <button className="px-4 py-2 rounded-full bg-primary text-black text-xs font-bold hover:scale-105 transition-transform">
-              Contact Me
-            </button>
-          </nav>
-        </header>
-        <main className="pt-24 min-h-screen max-w-7xl mx-auto px-6">
-          {children}
-        </main>
-        <footer className="py-12 border-t border-card-border mt-24">
-          <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="text-sm text-muted-foreground">© 2026 Danny. Built with Team Claw 🦾</p>
-            <div className="flex gap-6 text-sm text-muted-foreground">
-              <a href="https://github.com/ndangnguyen" className="hover:text-primary">GitHub</a>
-              <a href="#" className="hover:text-primary">Twitter</a>
-              <a href="#" className="hover:text-primary">LinkedIn</a>
+          </aside>
+
+          {/* Main Area */}
+          <div className="flex-1 flex flex-col h-full">
+            <header className="h-10 border-b border-border flex items-center justify-between px-4 text-xs font-bold bg-sidebar-bg">
+              <div className="flex gap-4">
+                <span>README.md</span>
+              </div>
+              <div className="flex gap-4 items-center">
+                <button className="opacity-50 hover:opacity-100">☀️</button>
+              </div>
+            </header>
+            
+            <div className="main-content">
+              {/* Line Numbers Simulation */}
+              <div className="line-numbers hidden lg:block">
+                {Array.from({ length: 50 }).map((_, i) => (
+                  <div key={i}>{i + 1}</div>
+                ))}
+              </div>
+              
+              <div className="content-area">
+                {children}
+              </div>
             </div>
+
+            {/* Status Bar */}
+            <footer className="status-bar">
+              <div className="flex-1 flex gap-4">
+                <span>UTF-8</span>
+                <span>TypeScript</span>
+              </div>
+              <div className="flex gap-4">
+                <span>{new Date().toLocaleDateString()}</span>
+                <span className="font-mono opacity-70">78e9c67</span>
+              </div>
+            </footer>
           </div>
-        </footer>
+        </div>
       </body>
     </html>
   );
