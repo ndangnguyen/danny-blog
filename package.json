@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "new-post": "bash scripts/new-post.sh",
+    "publish-post": "node scripts/publish-post.js"
   },
   "dependencies": {
     "next": "16.1.6",

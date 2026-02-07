@@ -1,6 +1,12 @@
 export default function NotesPage() {
   const notes = [
     {
+      title: "Flutter Rendering Deep Dive: Từ Code đến Điểm Ảnh",
+      date: "February 7",
+      slug: "flutter-rendering-deep-dive",
+      excerpt: "Khám phá cơ chế rendering độc đáo của Flutter từ Widget Tree đến RenderObject Tree."
+    },
+    {
       title: "Building with OpenClaw",
       date: "Feb 7, 2026",
       slug: "building-with-openclaw",

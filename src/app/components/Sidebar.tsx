@@ -71,6 +71,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
   ];
 
   const notes = [
+    { title: "flutter-rendering-deep-dive.md", slug: "flutter-rendering-deep-dive", path: "/notes/flutter-rendering-deep-dive" },
     { title: "building-with-openclaw.md", slug: "building-with-openclaw", path: "/notes/building-with-openclaw" },
     { title: "lumiled-journey.md", slug: "lumiled-journey", path: "/notes/lumiled-journey" },
   ];
