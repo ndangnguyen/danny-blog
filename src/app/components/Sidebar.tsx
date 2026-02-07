@@ -163,7 +163,10 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
         >
           <div 
             className="context-menu-item"
-            onClick={() => window.open(contextMenu.itemPath, '_blank')}
+            onClick={() => {
+              openTab({ title: contextMenu.itemSlug, path: contextMenu.itemPath });
+              closeContextMenu();
+            }}
           >
             Open in New Tab
           </div>
