@@ -47,7 +47,7 @@ export const photoData: PhotoYear[] = [
             {
                 slug: "golden-gate",
                 filename: "golden-gate.jpg",
-                src: "https://images.unsplash.com/photo-1449034446553-7c1e55d1e06b?w=800&q=80",
+                src: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&q=80",
                 year: 2025,
                 date: "01.03.2025",
                 location: "San Francisco",
@@ -156,7 +156,7 @@ export const photoData: PhotoYear[] = [
             {
                 slug: "street-art",
                 filename: "street-art.jpg",
-                src: "https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?w=800&q=80",
+                src: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=800&q=80",
                 year: 2023,
                 date: "08.20.2023",
                 location: "Urban",
