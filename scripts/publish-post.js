@@ -11,10 +11,10 @@ function publishPost() {
         params[key] = args[i+1];
     }
 
-    const { title, slug, excerpt, file, date } = params;
+    const { title, slug, excerpt, file, date, type = 'notes' } = params;
 
     if (!title || !slug || !excerpt || !file) {
-        console.error('Usage: node scripts/publish-post.js --title "<Title>" --slug "<slug>" --excerpt "<Excerpt>" --file <path_to_file>');
+        console.error('Usage: node scripts/publish-post.js --title "<Title>" --slug "<slug>" --excerpt "<Excerpt>" --file <path_to_file> [--type <notes|stories|newsletter>]');
         process.exit(1);
     }
 
@@ -25,9 +25,9 @@ function publishPost() {
 
     // 1. Create directory
     const blogRoot = path.resolve(__dirname, '..');
-    const notesDir = path.join(blogRoot, 'src/app/notes', slug);
-    if (!fs.existsSync(notesDir)) {
-        fs.mkdirSync(notesDir, { recursive: true });
+    const targetDir = path.join(blogRoot, 'src/app', type, slug);
+    if (!fs.existsSync(targetDir)) {
+        fs.mkdirSync(targetDir, { recursive: true });
     }
 
     // 2. Create page.tsx
@@ -86,43 +86,43 @@ function publishPost() {
       </div>
 
       <footer className="pt-12 border-t border-border mt-12">
-        <a href="/notes" className="text-sm no-underline hover:underline">← Back to notes</a>
+        <a href="/${type}" className="text-sm no-underline hover:underline">← Back to ${type}</a>
       </footer>
     </div>
   );
 }
 `;
-    fs.writeFileSync(path.join(notesDir, 'page.tsx'), pageTemplate);
+    fs.writeFileSync(path.join(targetDir, 'page.tsx'), pageTemplate);
 
-    // 3. Update src/app/notes/page.tsx
-    const indexFile = path.join(blogRoot, 'src/app/notes/page.tsx');
-    let indexContent = fs.readFileSync(indexFile, 'utf8');
+    // 3. Update src/app/<type>/page.tsx
+    const indexFile = path.join(blogRoot, 'src/app', type, 'page.tsx');
+    if (fs.existsSync(indexFile)) {
+        let indexContent = fs.readFileSync(indexFile, 'utf8');
 
-    const newNoteEntry = `    {
+        const newNoteEntry = `    {
       title: "${title}",
       date: "${shortDate}",
       slug: "${slug}",
       excerpt: "${excerpt}"
     },`;
 
-    const pattern = /const notes = \[/;
-    if (pattern.test(indexContent)) {
-        indexContent = indexContent.replace(pattern, `const notes = [\n${newNoteEntry}`);
-        fs.writeFileSync(indexFile, indexContent);
-        console.log(`Successfully updated: ${indexFile}`);
-    } else {
-        console.error("Error: Could not find 'notes' array in src/app/notes/page.tsx");
-        process.exit(1);
+        const pattern = new RegExp(`const ${type} = \\[`);
+        if (pattern.test(indexContent)) {
+            indexContent = indexContent.replace(pattern, (match) => `${match}\n${newNoteEntry}`);
+            fs.writeFileSync(indexFile, indexContent);
+            console.log(`Successfully updated: ${indexFile}`);
+        }
     }
 
     // 4. Update src/app/components/Sidebar.tsx
     const sidebarFile = path.join(blogRoot, 'src/app/components/Sidebar.tsx');
     if (fs.existsSync(sidebarFile)) {
         let sidebarContent = fs.readFileSync(sidebarFile, 'utf8');
-        const sidebarEntry = `    { title: "${slug}.md", slug: "${slug}", path: "/notes/${slug}" },`;
+        const sidebarEntry = `    { title: "${slug}.md", slug: "${slug}", path: "/${type}/${slug}" },`;
         
+        const pattern = new RegExp(`const ${type} = \\[`);
         if (pattern.test(sidebarContent)) {
-            sidebarContent = sidebarContent.replace(pattern, `const notes = [\n${sidebarEntry}`);
+            sidebarContent = sidebarContent.replace(pattern, (match) => `${match}\n${sidebarEntry}`);
             fs.writeFileSync(sidebarFile, sidebarContent);
             console.log(`Successfully updated: ${sidebarFile}`);
         }

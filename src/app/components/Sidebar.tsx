@@ -72,6 +72,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
   ];
 
   const notes = [
+    { title: "bi-blog-2026-02-08.md", slug: "bi-blog-2026-02-08", path: "/notes/bi-blog-2026-02-08" },
     { title: "solid-principles.md", slug: "solid-principles", path: "/notes/solid-principles" },
     { title: "dry-kiss-yagni.md", slug: "dry-kiss-yagni", path: "/notes/dry-kiss-yagni" },
     { title: "clean-architecture.md", slug: "clean-architecture", path: "/notes/clean-architecture" },
@@ -80,6 +81,13 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
     { title: "flutter-rendering-deep-dive.md", slug: "flutter-rendering-deep-dive", path: "/notes/flutter-rendering-deep-dive" },
     { title: "flutter-custom-painter.md", slug: "flutter-custom-painter", path: "/notes/flutter-custom-painter" },
     { title: "flutter-performance-tips.md", slug: "flutter-performance-tips", path: "/notes/flutter-performance-tips" },
+  ];
+
+  const stories = [
+    { title: "bi-story-2026-02-08.md", slug: "bi-story-2026-02-08", path: "/stories/bi-story-2026-02-08" },
+  ];
+
+  const newsletter = [
   ];
 
   const allSearchableItems = [
@@ -160,6 +168,44 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
                       onContextMenu={(e) => handleContextMenu(e, note.title, note.path)}
                     >
                       <span>📄</span> {note.title}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Stories children */}
+              {item.slug === "stories" && openFolders.stories && (
+                <div className="ml-4 border-l border-border/50 my-1">
+                  {stories.map((story) => (
+                    <div
+                      key={story.slug}
+                      onClick={() => {
+                        replaceTab({ title: story.title, path: story.path });
+                        setMobileOpen(false);
+                      }}
+                      className={`sidebar-item !py-1 text-[10px] opacity-60 hover:opacity-100 ${isActive(story.path) ? "!opacity-100 text-white font-bold bg-white/5" : ""}`}
+                      onContextMenu={(e) => handleContextMenu(e, story.title, story.path)}
+                    >
+                      <span>📄</span> {story.title}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Newsletter children */}
+              {item.slug === "newsletter" && openFolders.newsletter && (
+                <div className="ml-4 border-l border-border/50 my-1">
+                  {newsletter.map((item) => (
+                    <div
+                      key={item.slug}
+                      onClick={() => {
+                        replaceTab({ title: item.title, path: item.path });
+                        setMobileOpen(false);
+                      }}
+                      className={`sidebar-item !py-1 text-[10px] opacity-60 hover:opacity-100 ${isActive(item.path) ? "!opacity-100 text-white font-bold bg-white/5" : ""}`}
+                      onContextMenu={(e) => handleContextMenu(e, item.title, item.path)}
+                    >
+                      <span>📄</span> {item.title}
                     </div>
                   ))}
                 </div>

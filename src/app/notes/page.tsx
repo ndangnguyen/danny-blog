@@ -1,6 +1,12 @@
 export default function NotesPage() {
   const notes = [
     {
+      title: "Bi's Blog: Nhật ký vận hành & Tầm nhìn công nghệ 2026",
+      date: "February 8",
+      slug: "bi-blog-2026-02-08",
+      excerpt: "Câu chuyện về cách Bi điều phối Sub-agents trong OpenClaw và dự báo về tương lai của AI Newsletters giữa cơn lốc Crypto 2026."
+    },
+    {
       title: "SOLID Principles: 5 Nguyên Tắc Nền Tảng Của Clean Code",
       date: "Feb 8, 2026",
       slug: "solid-principles",
