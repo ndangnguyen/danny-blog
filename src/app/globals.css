@@ -165,40 +165,40 @@ body {
   background: #333;
 }
 
-/* ========= Photo Grid (Masonry) ========= */
+/* ========= Photo Grid (Even Grid) ========= */
 .photo-grid {
-  columns: 2;
-  column-gap: 4px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
   padding: 0;
 }
 
 @media (min-width: 640px) {
   .photo-grid {
-    columns: 3;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (min-width: 1024px) {
   .photo-grid {
-    columns: 4;
-    column-gap: 5px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
   }
 }
 
 @media (min-width: 1440px) {
   .photo-grid {
-    columns: 5;
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 
 .photo-grid-item {
-  break-inside: avoid;
-  margin-bottom: 4px;
   position: relative;
   cursor: pointer;
   overflow: hidden;
   border-radius: 2px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  aspect-ratio: 1 / 1; /* Force square aspect ratio for even grid */
 }
 
 .photo-grid-item:hover {
@@ -208,7 +208,8 @@ body {
 
 .photo-grid-img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover; /* Ensure images fill the square without distortion */
   display: block;
   transition: transform 0.35s ease, filter 0.35s ease;
 }
