@@ -139,7 +139,6 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
                 onContextMenu={(e) => handleContextMenu(e, item.label, item.path)}
                 onClick={() => {
                   if (item.isFolder) {
-                    toggleFolder(item.slug);
                     replaceTab({ title: item.label, path: item.path });
                     setMobileOpen(false);
                   } else {
@@ -148,7 +147,15 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
                   }
                 }}
               >
-                <span className={`text-[10px] transition-transform ${openFolders[item.slug] ? "rotate-90" : ""}`}>
+                <span 
+                  className={`text-[10px] p-1 -m-1 hover:bg-white/10 rounded transition-transform ${openFolders[item.slug] ? "rotate-90" : ""}`}
+                  onClick={(e) => {
+                    if (item.isFolder) {
+                      e.stopPropagation();
+                      toggleFolder(item.slug);
+                    }
+                  }}
+                >
                   {item.isFolder ? "▶" : ""}
                 </span>
                 <span className="opacity-70">{item.icon}</span>
@@ -224,10 +231,18 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
                           : ""
                           }`}
                         onClick={() => {
+                          // Year doesn't have a dedicated page yet, but we could navigate to a filtered photos page
+                          // For now, clicking the label also toggles the folder for convenience unless requested otherwise
                           toggleFolder(`photos-${yearGroup.year}`);
                         }}
                       >
-                        <span className={`text-[8px] transition-transform inline-block ${openFolders[`photos-${yearGroup.year}`] ? "rotate-90" : ""}`}>
+                        <span 
+                          className={`text-[8px] p-1 -m-1 hover:bg-white/10 rounded transition-transform inline-block ${openFolders[`photos-${yearGroup.year}`] ? "rotate-90" : ""}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleFolder(`photos-${yearGroup.year}`);
+                          }}
+                        >
                           ▶
                         </span>
                         <span>📁</span>
