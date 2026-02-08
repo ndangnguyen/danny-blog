@@ -88,6 +88,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
   ];
 
   const newsletter = [
+    { title: "ai-newsletter-2026-02-08.md", slug: "ai-newsletter-2026-02-08", path: "/newsletter/ai-newsletter-2026-02-08" },
   ];
 
   const allSearchableItems = [

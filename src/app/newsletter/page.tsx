@@ -1,5 +1,11 @@
 export default function NewsletterPage() {
   const newsletter = [
+    {
+      title: "AI Newsletter: Cơn lốc Crypto & Tầm nhìn 2026",
+      date: "February 8",
+      slug: "ai-newsletter-2026-02-08",
+      excerpt: "Bản tin phân tích về thị trường Crypto tháng 2/2026 và sức mạnh đột phá của AI trong việc cá nhân hóa thông tin đầu tư."
+    },
   ];
 
   return (
