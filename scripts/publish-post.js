@@ -29,7 +29,7 @@ function publishPost() {
         fs.mkdirSync(targetDir, { recursive: true });
     }
 
-    // 2. Parse Markdown to JSX (Simplified but robust)
+    // 2. Parse Markdown to JSX
     const lines = rawContent.trim().split('\n');
     let jsxContent = '';
     let inList = false;
@@ -39,7 +39,7 @@ function publishPost() {
         
         if (!line) {
             if (inList) {
-                jsxContent += '</ul>\n';
+                jsxContent += '        </ul>\n\n';
                 inList = false;
             }
             continue;
@@ -48,39 +48,39 @@ function publishPost() {
         // List handling
         if (line.startsWith('- ') || line.startsWith('* ')) {
             if (!inList) {
-                jsxContent += '<ul className="list-disc pl-6 space-y-2">\n';
+                jsxContent += '        <ul className="list-disc pl-6 space-y-4">\n';
                 inList = true;
             }
             const text = line.substring(2).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            jsxContent += `  <li>${text}</li>\n`;
+            jsxContent += `          <li>${text}</li>\n`;
             continue;
         } else if (inList) {
-            jsxContent += '</ul>\n';
+            jsxContent += '        </ul>\n\n';
             inList = false;
         }
 
-        // Headings - Use standard semantic tags, style via .prose global CSS
+        // Headings
         if (line.startsWith('### ')) {
-            jsxContent += `<h3>${line.substring(4)}</h3>\n`;
+            jsxContent += `        <h3 className="text-lg font-bold text-text-primary mt-6">${line.substring(4)}</h3>\n\n`;
         } else if (line.startsWith('## ')) {
-            jsxContent += `<h2>${line.substring(3)}</h2>\n`;
+            jsxContent += `        <h2 className="text-xl font-bold text-text-primary mt-8 border-b border-border pb-2">${line.substring(3)}</h2>\n\n`;
         } else if (line.startsWith('# ')) {
-            jsxContent += `<h2>${line.substring(2)}</h2>\n`;
+            jsxContent += `        <h2 className="text-xl font-bold text-text-primary mt-8 border-b border-border pb-2">${line.substring(2)}</h2>\n\n`;
         } else if (line === '---') {
-            jsxContent += '<hr />\n';
+            jsxContent += '        <hr className="border-border my-8" />\n\n';
         } else if (line.startsWith('![')) {
             const match = line.match(/!\[(.*?)\]\((.*?)\)/);
             if (match) {
-                jsxContent += `<figure>\n  <img src="${match[2]}" alt="${match[1]}" className="rounded-lg border border-border w-full h-auto" />\n</figure>\n`;
+                jsxContent += `        <figure className="space-y-2 py-4">\n          <img src="${match[2]}" alt="${match[1]}" className="rounded-lg border border-border w-full h-auto shadow-sm" />\n        </figure>\n\n`;
             }
         } else {
             // Paragraph
             const text = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/`(.*?)`/g, '<code>$1</code>');
-            jsxContent += `<p>${text}</p>\n`;
+            jsxContent += `        <p>${text}</p>\n\n`;
         }
     }
     
-    if (inList) jsxContent += '</ul>\n';
+    if (inList) jsxContent += '        </ul>\n\n';
 
     const componentName = slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('');
     const pageTemplate = `export default function ${componentName}Note() {
@@ -91,9 +91,8 @@ function publishPost() {
         <h1 className="text-2xl font-bold">${title}</h1>
       </header>
 
-      <div className="prose leading-relaxed">
-        ${jsxContent}
-      </div>
+      <div className="space-y-6 leading-relaxed text-text-muted">
+${jsxContent}      </div>
 
       <footer className="pt-12 border-t border-border mt-12 text-text-muted">
         <a href="/${type}" className="text-sm no-underline hover:underline">← Back to ${type}</a>
@@ -104,7 +103,7 @@ function publishPost() {
 `;
     fs.writeFileSync(path.join(targetDir, 'page.tsx'), pageTemplate);
 
-    // 3. Index and Sidebar updates... (omitted but logic remains same)
+    // 3. Index and Sidebar updates...
     const indexFile = path.join(blogRoot, 'src/app', type, 'page.tsx');
     if (fs.existsSync(indexFile)) {
         let indexContent = fs.readFileSync(indexFile, 'utf8');
