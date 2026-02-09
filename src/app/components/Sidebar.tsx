@@ -84,6 +84,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
   ];
 
   const stories = [
+    { title: "cau-truc-workspace-openclaw.md", slug: "cau-truc-workspace-openclaw", path: "/stories/cau-truc-workspace-openclaw" },
     { title: "thuat-ngu-openclaw.md", slug: "thuat-ngu-openclaw", path: "/stories/thuat-ngu-openclaw" },
     { title: "huong-dan-cli-openclaw.md", slug: "huong-dan-cli-openclaw", path: "/stories/huong-dan-cli-openclaw" },
     { title: "tong-hop-lenh-openclaw.md", slug: "tong-hop-lenh-openclaw", path: "/stories/tong-hop-lenh-openclaw" },

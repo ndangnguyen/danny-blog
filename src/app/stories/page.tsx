@@ -1,6 +1,12 @@
 export default function StoriesPage() {
   const stories = [
     {
+      title: "Giải mã cấu trúc bên trong một OpenClaw Workspace",
+      date: "February 9",
+      slug: "cau-truc-workspace-openclaw",
+      excerpt: "Khám phá các thành phần cốt lõi định nghĩa nên một Agent chuyên nghiệp, từ IDENTITY, SOUL đến bộ nhớ MEMORY."
+    },
+    {
       title: "Từ điển thuật ngữ OpenClaw cho người mới",
       date: "February 9",
       slug: "thuat-ngu-openclaw",
