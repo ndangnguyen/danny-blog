@@ -1,6 +1,18 @@
 export default function StoriesPage() {
   const stories = [
     {
+      title: "Nghệ thuật Ghi nhớ & Tự động hóa trong OpenClaw",
+      date: "February 9",
+      slug: "nghe-thuat-ghi-nho-trong-openclaw",
+      excerpt: "Làm thế nào để AI hiểu và nhớ lâu những yêu cầu của bạn? Bí mật nằm ở cơ chế quản lý bộ nhớ thông minh qua File."
+    },
+    {
+      title: "Hướng dẫn làm chủ OpenClaw: Từ Cơ bản đến Nâng cao",
+      date: "February 9",
+      slug: "huong-dan-lam-chu-openclaw",
+      excerpt: "Khám phá cách vận hành hiệu quả hệ thống OpenClaw, từ quản lý Workspace đến phối hợp đa Agent."
+    },
+    {
       title: "Bi Story: Câu chuyện vận hành & Tầm nhìn 2026",
       date: "February 8",
       slug: "bi-story-2026-02-08",
