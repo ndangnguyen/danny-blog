@@ -1,0 +1,30 @@
+Để quản trị hệ thống OpenClaw trực tiếp từ terminal, bộ lệnh CLI (Command Line Interface) chính là công cụ quyền lực nhất. Dưới đây là những lệnh "cửa miệng" mà mọi admin OpenClaw đều cần nằm lòng.
+
+## 🚀 Quản lý Gateway (Dịch vụ cốt lõi)
+
+Gateway là trái tim của hệ thống, quản lý các kết nối và luồng xử lý Agent.
+
+- **`openclaw gateway status`**: Kiểm tra xem "trái tim" hệ thống có đang đập khỏe mạnh hay không.
+- **`openclaw gateway restart`**: Làm mới toàn bộ hệ thống, thường dùng sau khi bạn thay đổi file cấu hình `openclaw.json`.
+- **`openclaw gateway start/stop`**: Bật hoặc tắt dịch vụ Gateway thủ công.
+
+## 🛡️ Quản lý Agent và Kết nối
+
+- **`openclaw status`**: Cái nhìn tổng quan về toàn bộ hệ thống: phiên bản đang dùng, các kênh đang kết nối (Telegram, Discord...) và các Agent đang hoạt động.
+- **`openclaw pairing list`**: Liệt kê các yêu cầu kết nối mới từ các bot (như khi bạn nhắn tin cho một bot mới tạo lần đầu).
+- **`openclaw pairing approve <ID>`**: Xác nhận "kết thân" với bot để bắt đầu trò chuyện.
+
+## 🩺 Kiểm tra và Debug
+
+Khi hệ thống gặp vấn đề, đây là những lệnh cứu cánh:
+
+- **`openclaw logs --follow`**: Xem dòng chảy dữ liệu thời gian thực. Mọi lỗi (error) hay cảnh báo (warning) đều sẽ hiện rõ tại đây.
+- **`openclaw doctor`**: Một bản "khám sức khỏe" tổng quát cho hệ thống, giúp phát hiện các file cấu hình lỗi hoặc thiếu API key.
+
+## ⚙️ Cấu hình và Cài đặt
+
+- **`openclaw configure`**: Mở trình thuật sĩ (Wizard) để cài đặt các tính năng mới mà không cần sửa file JSON thủ công.
+- **`openclaw upgrade`**: Cập nhật OpenClaw lên bản mới nhất để tận hưởng các tính năng và bản vá mới nhất.
+
+---
+Việc sử dụng thành thạo CLI giúp bạn kiểm soát hoàn toàn "hệ sinh thái" AI của mình, đảm bảo tính ổn định và hiệu suất cao nhất. 🛡️

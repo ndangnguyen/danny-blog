@@ -1,6 +1,12 @@
 export default function StoriesPage() {
   const stories = [
     {
+      title: "Làm chủ bộ lệnh CLI của OpenClaw",
+      date: "February 9",
+      slug: "huong-dan-cli-openclaw",
+      excerpt: "Hướng dẫn chi tiết các câu lệnh Command Line Interface để quản trị Gateway, cấu hình Agent và xử lý lỗi hệ thống chuyên sâu."
+    },
+    {
       title: "Tổng hợp các lệnh OpenClaw quan trọng",
       date: "February 9",
       slug: "tong-hop-lenh-openclaw",
