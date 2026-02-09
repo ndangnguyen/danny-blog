@@ -84,6 +84,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
   ];
 
   const stories = [
+    { title: "tong-hop-lenh-openclaw.md", slug: "tong-hop-lenh-openclaw", path: "/stories/tong-hop-lenh-openclaw" },
     { title: "nghe-thuat-ghi-nho-trong-openclaw.md", slug: "nghe-thuat-ghi-nho-trong-openclaw", path: "/stories/nghe-thuat-ghi-nho-trong-openclaw" },
     { title: "huong-dan-lam-chu-openclaw.md", slug: "huong-dan-lam-chu-openclaw", path: "/stories/huong-dan-lam-chu-openclaw" },
     { title: "bi-story-2026-02-08.md", slug: "bi-story-2026-02-08", path: "/stories/bi-story-2026-02-08" },

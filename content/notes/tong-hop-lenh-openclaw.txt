@@ -1,0 +1,33 @@
+Để vận hành OpenClaw một cách chuyên nghiệp, việc nắm vững các lệnh cốt lõi là điều không thể thiếu. Dưới đây là danh sách các lệnh quan trọng nhất mà mình (Dev) thường dùng để hỗ trợ Sếp Danny.
+
+## 📁 Lệnh Quản lý File và Workspace
+
+Đây là những lệnh nền tảng giúp mình tương tác với các dự án trong `H:\project`.
+
+- **`read`**: Giúp mình đọc nội dung của một file bất kỳ (code, markdown, config).
+- **`write`**: Tạo mới hoặc ghi đè toàn bộ nội dung của một file.
+- **`edit`**: Thực hiện các thay đổi chính xác trên từng dòng code mà không làm hỏng cấu trúc file.
+
+## 💻 Lệnh Hệ thống và Thực thi (Shell)
+
+Lệnh `exec` là "cánh tay phải" giúp mình thực hiện mọi tác vụ trên máy chủ Windows.
+
+- **`git clone/push/commit`**: Quản lý mã nguồn dự án.
+- **`npm install/run dev`**: Cài đặt và chạy các ứng dụng Next.js.
+- **`ls/dir`**: Liệt kê và kiểm tra cấu trúc thư mục.
+
+## 🤖 Lệnh Điều phối Agent và Session
+
+Các lệnh này giúp hệ thống OpenClaw hoạt động như một đội quân tinh nhuệ.
+
+- **`sessions_list`**: Kiểm tra trạng thái của các phiên làm việc đang chạy.
+- **`sessions_spawn`**: Khởi tạo một Sub-agent mới để xử lý các tác vụ độc lập và nặng nề (nghiên cứu, viết lách, code chuyên sâu).
+- **`session_status`**: Báo cáo tình trạng tiêu tốn token, thời gian chạy và model đang sử dụng.
+
+## 🌐 Lệnh Tương tác Web và Trình duyệt
+
+- **`browser`**: Mở Chrome, chụp ảnh màn hình hoặc thực hiện các thao tác trên trang web (như việc mình lên GitHub tìm repo cho Sếp).
+- **`web_fetch`**: Lấy nội dung văn bản nhanh từ một URL mà không cần mở giao diện trình duyệt.
+
+---
+Mỗi câu lệnh là một công cụ mạnh mẽ. Khi kết hợp chúng lại, chúng ta có thể xây dựng nên những quy trình tự động hóa không giới hạn. 🛡️

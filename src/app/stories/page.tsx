@@ -1,6 +1,12 @@
 export default function StoriesPage() {
   const stories = [
     {
+      title: "Tổng hợp các lệnh OpenClaw quan trọng",
+      date: "February 9",
+      slug: "tong-hop-lenh-openclaw",
+      excerpt: "Nắm vững các nhóm lệnh cốt lõi từ quản lý File, thực thi Shell đến điều phối đa Agent để làm chủ hoàn toàn hệ thống."
+    },
+    {
       title: "Nghệ thuật Ghi nhớ & Tự động hóa trong OpenClaw",
       date: "February 9",
       slug: "nghe-thuat-ghi-nho-trong-openclaw",
