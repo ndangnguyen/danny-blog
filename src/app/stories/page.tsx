@@ -1,6 +1,12 @@
 export default function StoriesPage() {
   const stories = [
     {
+      title: "Từ điển thuật ngữ OpenClaw cho người mới",
+      date: "February 9",
+      slug: "thuat-ngu-openclaw",
+      excerpt: "Giải thích các khái niệm cốt lõi như Gateway, Agent, Skill, Session... giúp bạn hiểu rõ hệ sinh thái OpenClaw vận hành như thế nào."
+    },
+    {
       title: "Làm chủ bộ lệnh CLI của OpenClaw",
       date: "February 9",
       slug: "huong-dan-cli-openclaw",
