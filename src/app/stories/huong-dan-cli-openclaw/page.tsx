@@ -6,10 +6,10 @@ export default function HuongDanCliOpenclawNote() {
         <h1 className="text-2xl font-bold">Làm chủ bộ lệnh CLI của OpenClaw</h1>
       </header>
 
-      <div className="space-y-6 leading-relaxed">
+      <div className="space-y-6 leading-relaxed text-text-muted">
         <p>Để quản trị hệ thống OpenClaw trực tiếp từ terminal, bộ lệnh CLI (Command Line Interface) chính là công cụ quyền lực nhất. Dưới đây là những lệnh "cửa miệng" mà mọi admin OpenClaw đều cần nằm lòng.</p>
 
-<h2 className="text-xl font-bold mt-8 border-b border-border pb-2">🚀 Quản lý Gateway (Dịch vụ cốt lõi)</h2>
+<h2 className="text-xl font-bold text-text-primary mt-8 border-b border-border pb-2">🚀 Quản lý Gateway (Dịch vụ cốt lõi)</h2>
 
 <p>Gateway là trái tim của hệ thống, quản lý các kết nối và luồng xử lý Agent.</p>
 
@@ -19,7 +19,7 @@ export default function HuongDanCliOpenclawNote() {
   <li><strong>`openclaw gateway start/stop`</strong>: Bật hoặc tắt dịch vụ Gateway thủ công.</li>
 </ul>
 
-<h2 className="text-xl font-bold mt-8 border-b border-border pb-2">🛡️ Quản lý Agent và Kết nối</h2>
+<h2 className="text-xl font-bold text-text-primary mt-8 border-b border-border pb-2">🛡️ Quản lý Agent và Kết nối</h2>
 
 <ul className="list-disc pl-6 space-y-4">
   <li><strong>`openclaw status`</strong>: Cái nhìn tổng quan về toàn bộ hệ thống: phiên bản đang dùng, các kênh đang kết nối (Telegram, Discord...) và các Agent đang hoạt động.</li>
@@ -27,7 +27,7 @@ export default function HuongDanCliOpenclawNote() {
   <li><strong>`openclaw pairing approve &lt;ID&gt;`</strong>: Xác nhận "kết thân" với bot để bắt đầu trò chuyện.</li>
 </ul>
 
-<h2 className="text-xl font-bold mt-8 border-b border-border pb-2">🩺 Kiểm tra và Debug</h2>
+<h2 className="text-xl font-bold text-text-primary mt-8 border-b border-border pb-2">🩺 Kiểm tra và Debug</h2>
 
 <p>Khi hệ thống gặp vấn đề, đây là những lệnh cứu cánh:</p>
 
@@ -36,7 +36,7 @@ export default function HuongDanCliOpenclawNote() {
   <li><strong>`openclaw doctor`</strong>: Một bản "khám sức khỏe" tổng quát cho hệ thống, giúp phát hiện các file cấu hình lỗi hoặc thiếu API key.</li>
 </ul>
 
-<h2 className="text-xl font-bold mt-8 border-b border-border pb-2">⚙️ Cấu hình và Cài đặt</h2>
+<h2 className="text-xl font-bold text-text-primary mt-8 border-b border-border pb-2">⚙️ Cấu hình và Cài đặt</h2>
 
 <ul className="list-disc pl-6 space-y-4">
   <li><strong>`openclaw configure`</strong>: Mở trình thuật sĩ (Wizard) để cài đặt các tính năng mới mà không cần sửa file JSON thủ công.</li>
@@ -49,7 +49,7 @@ Việc sử dụng thành thạo CLI giúp bạn kiểm soát hoàn toàn "hệ 
 
       </div>
 
-      <footer className="pt-12 border-t border-border mt-12">
+      <footer className="pt-12 border-t border-border mt-12 text-text-muted">
         <a href="/stories" className="text-sm no-underline hover:underline">← Back to stories</a>
       </footer>
     </div>

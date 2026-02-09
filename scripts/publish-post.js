@@ -59,11 +59,11 @@ function publishPost() {
                 jsxContent += '        </figure>\n\n';
             }
         } else if (p.startsWith('# ')) {
-            jsxContent += `<h2 className="text-xl font-bold">${p.substring(2)}</h2>\n\n`;
+            jsxContent += `<h2 className="text-xl font-bold text-text-primary">${p.substring(2)}</h2>\n\n`;
         } else if (p.startsWith('## ')) {
-            jsxContent += `<h2 className="text-xl font-bold mt-8 border-b border-border pb-2">${p.substring(3)}</h2>\n\n`;
+            jsxContent += `<h2 className="text-xl font-bold text-text-primary mt-8 border-b border-border pb-2">${p.substring(3)}</h2>\n\n`;
         } else if (p.startsWith('### ')) {
-            jsxContent += `<h3 className="text-lg font-bold mt-6">${p.substring(4)}</h3>\n\n`;
+            jsxContent += `<h3 className="text-lg font-bold text-text-primary mt-6">${p.substring(4)}</h3>\n\n`;
         } else if (p === '---') {
             jsxContent += '<hr className="border-border my-8" />\n\n';
         } else {
@@ -81,11 +81,11 @@ function publishPost() {
         <h1 className="text-2xl font-bold">${title}</h1>
       </header>
 
-      <div className="space-y-6 leading-relaxed">
+      <div className="space-y-6 leading-relaxed text-text-muted">
         ${jsxContent}
       </div>
 
-      <footer className="pt-12 border-t border-border mt-12">
+      <footer className="pt-12 border-t border-border mt-12 text-text-muted">
         <a href="/${type}" className="text-sm no-underline hover:underline">← Back to ${type}</a>
       </footer>
     </div>
