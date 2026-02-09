@@ -334,7 +334,7 @@ body {
 }
 
 .prose h2 {
-  font-size: 18px !important;
+  font-size: 16px !important; /* Made smaller than text-xl */
   margin-top: 2.5rem;
   margin-bottom: 1.25rem;
   border-bottom: 1px solid var(--border);
@@ -342,7 +342,7 @@ body {
 }
 
 .prose h3 {
-  font-size: 15px !important;
+  font-size: 14px !important;
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
 }

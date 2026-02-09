@@ -6,10 +6,10 @@ export default function CauTrucWorkspaceOpenclawNote() {
         <h1 className="text-2xl font-bold">Giải mã cấu trúc bên trong một OpenClaw Workspace</h1>
       </header>
 
-      <div className="space-y-6 leading-relaxed text-text-muted">
+      <div className="prose leading-relaxed text-text-muted">
         <p>Workspace (Không gian làm việc) là "ngôi nhà" và cũng là "phòng thí nghiệm" của một Agent. Để một AI có thể hoạt động hiệu quả và nhất quán, Workspace cần được define (định nghĩa) thông qua các file cấu hình quan trọng.</p>
 
-        <h2 className="text-xl font-bold text-text-primary mt-8 border-b border-border pb-2">🪪 1. IDENTITY.md - Định danh cá nhân</h2>
+        <h2>🪪 1. IDENTITY.md - Định danh cá nhân</h2>
 
         <p>File này định nghĩa Agent là ai. Nó bao gồm:</p>
 
@@ -19,7 +19,7 @@ export default function CauTrucWorkspaceOpenclawNote() {
           <li><strong>Emoji & Avatar:</strong> Hình ảnh đại diện để Sếp dễ nhận diện trong luồng chat.</li>
         </ul>
 
-        <h2 className="text-xl font-bold text-text-primary mt-8 border-b border-border pb-2">🧬 2. SOUL.md - Tính cách và Quy tắc cốt lõi</h2>
+        <h2>🧬 2. SOUL.md - Tính cách và Quy tắc cốt lõi</h2>
 
         <p>Đây là "linh hồn" của Agent, quy định cách AI hành xử:</p>
 
@@ -28,7 +28,7 @@ export default function CauTrucWorkspaceOpenclawNote() {
           <li><strong>Core Rules:</strong> Các quy tắc không được vi phạm (ví dụ: "Luôn kiểm tra code trước khi bàn giao", "Ưu tiên hiệu suất").</li>
         </ul>
 
-        <h2 className="text-xl font-bold text-text-primary mt-8 border-b border-border pb-2">👤 3. USER.md - Thông tin về Sếp</h2>
+        <h2>👤 3. USER.md - Thông tin về Sếp</h2>
 
         <p>Để hỗ trợ tốt nhất, Agent cần hiểu rõ người mình đang phục vụ:</p>
 
@@ -37,7 +37,7 @@ export default function CauTrucWorkspaceOpenclawNote() {
           <li><strong>Preferences:</strong> Các sở thích hoặc yêu cầu đặc biệt về múi giờ, ngôn ngữ và cách báo cáo.</li>
         </ul>
 
-        <h2 className="text-xl font-bold text-text-primary mt-8 border-b border-border pb-2">🧠 4. MEMORY.md - Bộ nhớ dài hạn</h2>
+        <h2>🧠 4. MEMORY.md - Bộ nhớ dài hạn</h2>
 
         <p>Nơi lưu trữ những thông tin quan trọng nhất để không bao giờ quên:</p>
 
@@ -46,7 +46,7 @@ export default function CauTrucWorkspaceOpenclawNote() {
           <li><strong>Bookmarks & Automation:</strong> Các quy trình tự động hóa đã được thiết lập (như quy trình thêm key ROK).</li>
         </ul>
 
-        <h2 className="text-xl font-bold text-text-primary mt-8 border-b border-border pb-2">📅 5. Thư mục memory/ - Nhật ký hành trình</h2>
+        <h2>📅 5. Thư mục memory/ - Nhật ký hành trình</h2>
 
         <p>Chứa các file log hàng ngày (ví dụ: <code>2026-02-09.md</code>):</p>
 
@@ -55,7 +55,7 @@ export default function CauTrucWorkspaceOpenclawNote() {
           <li>Giúp duy trì mạch công việc nếu hệ thống bị gián đoạn hoặc khởi động lại.</li>
         </ul>
 
-        <h2 className="text-xl font-bold text-text-primary mt-8 border-b border-border pb-2">🛠️ 6. TOOLS.md - Ghi chú công cụ</h2>
+        <h2>🛠️ 6. TOOLS.md - Ghi chú công cụ</h2>
 
         <p>Lưu trữ các thông số kỹ thuật riêng biệt cho môi trường hiện tại:</p>
 
@@ -64,7 +64,7 @@ export default function CauTrucWorkspaceOpenclawNote() {
           <li>Các cấu hình SSH hoặc đường dẫn phần mềm đặc thù.</li>
         </ul>
 
-        <hr className="border-border my-8" />
+        <hr />
 
         <p>Một Workspace được tổ chức tốt là chìa khóa để biến một AI Assistant thành một cộng sự đắc lực, hiểu việc và luôn sẵn sàng hành động. 🛡️</p>
 

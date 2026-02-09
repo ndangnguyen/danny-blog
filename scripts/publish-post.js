@@ -29,7 +29,7 @@ function publishPost() {
         fs.mkdirSync(targetDir, { recursive: true });
     }
 
-    // 2. Parse Markdown to JSX
+    // 2. Simple Markdown Parser
     const lines = rawContent.trim().split('\n');
     let jsxContent = '';
     let inList = false;
@@ -45,7 +45,7 @@ function publishPost() {
             continue;
         }
 
-        // List handling
+        // List item
         if (line.startsWith('- ') || line.startsWith('* ')) {
             if (!inList) {
                 jsxContent += '        <ul className="list-disc pl-6 space-y-4">\n';
@@ -61,20 +61,20 @@ function publishPost() {
 
         // Headings
         if (line.startsWith('### ')) {
-            jsxContent += `        <h3 className="text-lg font-bold text-text-primary mt-6">${line.substring(4)}</h3>\n\n`;
+            jsxContent += `        <h3>${line.substring(4)}</h3>\n\n`;
         } else if (line.startsWith('## ')) {
-            jsxContent += `        <h2 className="text-xl font-bold text-text-primary mt-8 border-b border-border pb-2">${line.substring(3)}</h2>\n\n`;
+            jsxContent += `        <h2>${line.substring(3)}</h2>\n\n`;
         } else if (line.startsWith('# ')) {
-            jsxContent += `        <h2 className="text-xl font-bold text-text-primary mt-8 border-b border-border pb-2">${line.substring(2)}</h2>\n\n`;
+            jsxContent += `        <h2>${line.substring(2)}</h2>\n\n`;
         } else if (line === '---') {
-            jsxContent += '        <hr className="border-border my-8" />\n\n';
+            jsxContent += '        <hr />\n\n';
         } else if (line.startsWith('![')) {
             const match = line.match(/!\[(.*?)\]\((.*?)\)/);
             if (match) {
                 jsxContent += `        <figure className="space-y-2 py-4">\n          <img src="${match[2]}" alt="${match[1]}" className="rounded-lg border border-border w-full h-auto shadow-sm" />\n        </figure>\n\n`;
             }
         } else {
-            // Paragraph
+            // Paragraph - Ensure we don't accidentally merge lines into a single tag
             const text = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/`(.*?)`/g, '<code>$1</code>');
             jsxContent += `        <p>${text}</p>\n\n`;
         }
@@ -91,7 +91,7 @@ function publishPost() {
         <h1 className="text-2xl font-bold">${title}</h1>
       </header>
 
-      <div className="space-y-6 leading-relaxed text-text-muted">
+      <div className="prose leading-relaxed text-text-muted">
 ${jsxContent}      </div>
 
       <footer className="pt-12 border-t border-border mt-12 text-text-muted">
@@ -104,32 +104,25 @@ ${jsxContent}      </div>
     fs.writeFileSync(path.join(targetDir, 'page.tsx'), pageTemplate);
 
     // 3. Index and Sidebar updates...
-    const indexFile = path.join(blogRoot, 'src/app', type, 'page.tsx');
-    if (fs.existsSync(indexFile)) {
-        let indexContent = fs.readFileSync(indexFile, 'utf8');
-        const newNoteEntry = `    {
+    const updateFile = (filePath, arrayName) => {
+        if (!fs.existsSync(filePath)) return;
+        let content = fs.readFileSync(filePath, 'utf8');
+        const entry = arrayName === 'notes' ? `    {
       title: "${title}",
       date: "${shortDate}",
       slug: "${slug}",
       excerpt: "${excerpt}"
-    },`;
-        const pattern = new RegExp(`const ${type} = \\[`);
-        if (pattern.test(indexContent) && !indexContent.includes(`slug: "${slug}"`)) {
-            indexContent = indexContent.replace(pattern, (match) => `${match}\n${newNoteEntry}`);
-            fs.writeFileSync(indexFile, indexContent);
+    },` : `    { title: "${slug}.md", slug: "${slug}", path: "/${type}/${slug}" },`;
+        
+        const pattern = new RegExp(`const ${arrayName} = \\[`);
+        if (pattern.test(content) && !content.includes(`slug: "${slug}"`)) {
+            content = content.replace(pattern, (match) => `${match}\n${entry}`);
+            fs.writeFileSync(filePath, content);
         }
-    }
+    };
 
-    const sidebarFile = path.join(blogRoot, 'src/app/components/Sidebar.tsx');
-    if (fs.existsSync(sidebarFile)) {
-        let sidebarContent = fs.readFileSync(sidebarFile, 'utf8');
-        const sidebarEntry = `    { title: "${slug}.md", slug: "${slug}", path: "/${type}/${slug}" },`;
-        const pattern = new RegExp(`const ${type} = \\[`);
-        if (pattern.test(sidebarContent) && !sidebarContent.includes(`slug: "${slug}"`)) {
-            sidebarContent = sidebarContent.replace(pattern, (match) => `${match}\n${sidebarEntry}`);
-            fs.writeFileSync(sidebarFile, sidebarContent);
-        }
-    }
+    updateFile(path.join(blogRoot, 'src/app', type, 'page.tsx'), type);
+    updateFile(path.join(blogRoot, 'src/app/components/Sidebar.tsx'), type);
 
     console.log(`Successfully published: ${title}`);
 }
