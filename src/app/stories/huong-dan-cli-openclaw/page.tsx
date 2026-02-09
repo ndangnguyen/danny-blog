@@ -7,14 +7,14 @@ export default function HuongDanCliOpenclawNote() {
       </header>
 
       <div className="space-y-6 leading-relaxed text-text-muted">
-        <p>Để quản trị hệ thống OpenClaw trực tiếp từ terminal, bộ lệnh CLI (Command Line Interface) chính là công cụ quyền lực nhất. Dưới đây là những lệnh "cửa miệng" mà mọi admin OpenClaw đều cần nằm lòng.</p>
+        <p>Để quản trị hệ thống OpenClaw trực tiếp từ terminal, bộ lệnh CLI (Command Line Interface) chính là công cụ quyền lực nhất. Dưới đây là những lệnh &quot;cửa miệng&quot; mà mọi admin OpenClaw đều cần nằm lòng.</p>
 
         <h2 className="text-xl font-bold text-text-primary mt-8 border-b border-border pb-2">🚀 Quản lý Gateway (Dịch vụ cốt lõi)</h2>
 
         <p>Gateway là trái tim của hệ thống, quản lý các kết nối và luồng xử lý Agent.</p>
 
         <ul className="list-disc pl-6 space-y-4">
-          <li><strong>`openclaw gateway status`</strong>: Kiểm tra xem "trái tim" hệ thống có đang đập khỏe mạnh hay không.</li>
+          <li><strong>`openclaw gateway status`</strong>: Kiểm tra xem &quot;trái tim&quot; hệ thống có đang đập khỏe mạnh hay không.</li>
           <li><strong>`openclaw gateway restart`</strong>: Làm mới toàn bộ hệ thống, thường dùng sau khi bạn thay đổi file cấu hình `openclaw.json`.</li>
           <li><strong>`openclaw gateway start/stop`</strong>: Bật hoặc tắt dịch vụ Gateway thủ công.</li>
         </ul>
@@ -24,7 +24,7 @@ export default function HuongDanCliOpenclawNote() {
         <ul className="list-disc pl-6 space-y-4">
           <li><strong>`openclaw status`</strong>: Cái nhìn tổng quan về toàn bộ hệ thống: phiên bản đang dùng, các kênh đang kết nối (Telegram, Discord...) và các Agent đang hoạt động.</li>
           <li><strong>`openclaw pairing list`</strong>: Liệt kê các yêu cầu kết nối mới từ các bot (như khi bạn nhắn tin cho một bot mới tạo lần đầu).</li>
-          <li><strong>`openclaw pairing approve <ID>`</strong>: Xác nhận "kết thân" với bot để bắt đầu trò chuyện.</li>
+          <li><strong>`openclaw pairing approve &lt;ID&gt;`</strong>: Xác nhận &quot;kết thân&quot; với bot để bắt đầu trò chuyện.</li>
         </ul>
 
         <h2 className="text-xl font-bold text-text-primary mt-8 border-b border-border pb-2">🩺 Kiểm tra và Debug</h2>
@@ -33,7 +33,7 @@ export default function HuongDanCliOpenclawNote() {
 
         <ul className="list-disc pl-6 space-y-4">
           <li><strong>`openclaw logs --follow`</strong>: Xem dòng chảy dữ liệu thời gian thực. Mọi lỗi (error) hay cảnh báo (warning) đều sẽ hiện rõ tại đây.</li>
-          <li><strong>`openclaw doctor`</strong>: Một bản "khám sức khỏe" tổng quát cho hệ thống, giúp phát hiện các file cấu hình lỗi hoặc thiếu API key.</li>
+          <li><strong>`openclaw doctor`</strong>: Một bản &quot;khám sức khỏe&quot; tổng quát cho hệ thống, giúp phát hiện các file cấu hình lỗi hoặc thiếu API key.</li>
         </ul>
 
         <h2 className="text-xl font-bold text-text-primary mt-8 border-b border-border pb-2">⚙️ Cấu hình và Cài đặt</h2>
@@ -45,7 +45,7 @@ export default function HuongDanCliOpenclawNote() {
 
         <hr className="border-border my-8" />
 
-        <p>Việc sử dụng thành thạo CLI giúp bạn kiểm soát hoàn toàn "hệ sinh thái" AI của mình, đảm bảo tính ổn định và hiệu suất cao nhất. 🛡️</p>
+        <p>Việc sử dụng thành thạo CLI giúp bạn kiểm soát hoàn toàn &quot;hệ sinh thái&quot; AI của mình, đảm bảo tính ổn định và hiệu suất cao nhất. 🛡️</p>
 
       </div>
 
