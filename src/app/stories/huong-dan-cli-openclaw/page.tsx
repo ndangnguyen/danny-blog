@@ -24,7 +24,7 @@ export default function HuongDanCliOpenclawNote() {
         <ul className="list-disc pl-6 space-y-4">
           <li><strong>`openclaw status`</strong>: Cái nhìn tổng quan về toàn bộ hệ thống: phiên bản đang dùng, các kênh đang kết nối (Telegram, Discord...) và các Agent đang hoạt động.</li>
           <li><strong>`openclaw pairing list`</strong>: Liệt kê các yêu cầu kết nối mới từ các bot (như khi bạn nhắn tin cho một bot mới tạo lần đầu).</li>
-          <li><strong>`openclaw pairing approve <ID>`</strong>: Xác nhận "kết thân" với bot để bắt đầu trò chuyện.</li>
+          <li><strong>`openclaw pairing approve &lt;ID&gt;`</strong>: Xác nhận "kết thân" với bot để bắt đầu trò chuyện.</li>
         </ul>
 
         <h2>🩺 Kiểm tra và Debug</h2>
