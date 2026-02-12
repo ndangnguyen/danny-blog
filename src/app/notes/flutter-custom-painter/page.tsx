@@ -1,3 +1,7 @@
+"use client";
+
+import CommentSection from "../../components/CommentSection";
+
 export default function FlutterCustomPainterNote() {
     return (
         <div className="space-y-8 animate-in fade-in duration-700">
@@ -95,6 +99,8 @@ export default function FlutterCustomPainterNote() {
 
                 <p>CustomPainter là công cụ mạnh mẽ nhưng cần sử dụng có trách nhiệm. Hãy nhớ: <strong>Widget vẫn là lựa chọn đầu tiên, CustomPainter là cho những lúc bạn thực sự cần kiểm soát từng pixel.</strong></p>
             </div>
+
+            <CommentSection slug="flutter-custom-painter" />
 
             <footer className="pt-12 border-t border-border mt-12 text-text-muted">
                 <a href="/notes" className="text-sm no-underline hover:underline">← Back to notes</a>

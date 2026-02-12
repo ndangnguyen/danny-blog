@@ -1,3 +1,7 @@
+"use client";
+
+import CommentSection from "../../components/CommentSection";
+
 export default function DesignPatternsNote() {
     return (
         <div className="space-y-8 animate-in fade-in duration-700">
@@ -143,6 +147,8 @@ export default function DesignPatternsNote() {
 
                 <p>Design Patterns là <strong>công cụ, không phải mục tiêu</strong>. Đừng ép pattern vào code — hãy nhận ra bài toán rồi áp dụng pattern phù hợp. Kinh nghiệm của mình: <strong>hiểu rõ 5-7 patterns cốt lõi sẽ giải quyết được 90% các bài toán thiết kế</strong>.</p>
             </div>
+
+            <CommentSection slug="design-patterns" />
 
             <footer className="pt-12 border-t border-border mt-12 text-text-muted">
                 <a href="/notes" className="text-sm no-underline hover:underline">← Back to notes</a>

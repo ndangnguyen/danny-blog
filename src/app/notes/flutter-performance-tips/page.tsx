@@ -1,3 +1,7 @@
+"use client";
+
+import CommentSection from "../../components/CommentSection";
+
 export default function FlutterPerformanceTipsNote() {
     return (
         <div className="space-y-8 animate-in fade-in duration-700">
@@ -112,6 +116,8 @@ export default function FlutterPerformanceTipsNote() {
 
                 <p>Hiệu năng không phải là thứ bạn thêm vào cuối cùng, mà là thứ bạn <strong>nghĩ đến từ đầu</strong>. Hãy profile thường xuyên và optimize có chủ đích.</p>
             </div>
+
+            <CommentSection slug="flutter-performance-tips" />
 
             <footer className="pt-12 border-t border-border mt-12 text-text-muted">
                 <a href="/notes" className="text-sm no-underline hover:underline">← Back to notes</a>

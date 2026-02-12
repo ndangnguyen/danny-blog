@@ -1,3 +1,7 @@
+"use client";
+
+import CommentSection from "../../components/CommentSection";
+
 export default function SolidPrinciplesNote() {
     return (
         <div className="space-y-8 animate-in fade-in duration-700">
@@ -128,6 +132,8 @@ export default function SolidPrinciplesNote() {
 
                 <p>Một điều mình học được: <strong>SOLID giúp code &quot;mềm dẻo&quot;</strong> — dễ thay đổi khi requirement thay đổi, mà không cần refactor cả thế giới.</p>
             </div>
+
+            <CommentSection slug="solid-principles" />
 
             <footer className="pt-12 border-t border-border mt-12 text-text-muted">
                 <a href="/notes" className="text-sm no-underline hover:underline">← Back to notes</a>

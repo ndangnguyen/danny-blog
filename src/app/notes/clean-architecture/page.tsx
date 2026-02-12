@@ -1,3 +1,7 @@
+"use client";
+
+import CommentSection from "../../components/CommentSection";
+
 export default function CleanArchitectureNote() {
     return (
         <div className="space-y-8 animate-in fade-in duration-700">
@@ -132,6 +136,8 @@ export default function CleanArchitectureNote() {
 
                 <p><strong>&quot;The only way to go fast, is to go well.&quot;</strong> — Uncle Bob</p>
             </div>
+
+            <CommentSection slug="clean-architecture" />
 
             <footer className="pt-12 border-t border-border mt-12 text-text-muted">
                 <a href="/notes" className="text-sm no-underline hover:underline">← Back to notes</a>

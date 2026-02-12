@@ -72,6 +72,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
   ];
 
   const notes = [
+    { title: "8-stages-ai-programming.md", slug: "8-stages-ai-programming", path: "/notes/8-stages-ai-programming" },
     { title: "bi-blog-2026-02-08.md", slug: "bi-blog-2026-02-08", path: "/notes/bi-blog-2026-02-08" },
     { title: "solid-principles.md", slug: "solid-principles", path: "/notes/solid-principles" },
     { title: "dry-kiss-yagni.md", slug: "dry-kiss-yagni", path: "/notes/dry-kiss-yagni" },
@@ -153,7 +154,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
                   }
                 }}
               >
-                <span 
+                <span
                   className={`text-[10px] p-1 -m-1 hover:bg-white/10 rounded transition-transform ${openFolders[item.slug] ? "rotate-90" : ""}`}
                   onClick={(e) => {
                     if (item.isFolder) {
@@ -242,7 +243,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
                           toggleFolder(`photos-${yearGroup.year}`);
                         }}
                       >
-                        <span 
+                        <span
                           className={`text-[8px] p-1 -m-1 hover:bg-white/10 rounded transition-transform inline-block ${openFolders[`photos-${yearGroup.year}`] ? "rotate-90" : ""}`}
                           onClick={(e) => {
                             e.stopPropagation();

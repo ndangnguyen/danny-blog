@@ -1,6 +1,12 @@
 export default function NotesPage() {
   const notes = [
     {
+      title: "Tám Giai Đoạn Tiến Hóa Của Lập Trình Viên Với AI",
+      date: "Feb 12, 2026",
+      slug: "8-stages-ai-programming",
+      excerpt: "Từ việc hỏi cú pháp cơ bản đến điều phối hàng chục AI Agent — 8 cấp độ mà mọi lập trình viên sẽ trải qua trong kỷ nguyên AI."
+    },
+    {
       title: "Bi's Blog: Nhật ký vận hành & Tầm nhìn công nghệ 2026",
       date: "February 8",
       slug: "bi-blog-2026-02-08",

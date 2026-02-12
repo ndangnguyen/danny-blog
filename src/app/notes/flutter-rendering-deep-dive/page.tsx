@@ -1,3 +1,7 @@
+"use client";
+
+import CommentSection from "../../components/CommentSection";
+
 export default function FlutterRenderingDeepDiveNote() {
   return (
     <div className="space-y-8 animate-in fade-in duration-700">
@@ -101,6 +105,8 @@ export default function FlutterRenderingDeepDiveNote() {
 
         <p>Hiểu rõ cơ chế rendering của Flutter không chỉ giúp bạn trở thành một lập trình viên giỏi hơn mà còn giúp bạn xây dựng được những ứng dụng có trải nghiệm người dùng tuyệt vời. Hãy nhớ rằng: <strong>Widget là bản thiết kế, Element là người quản lý, và RenderObject là người thực thi.</strong></p>
       </div>
+
+      <CommentSection slug="flutter-rendering-deep-dive" />
 
       <footer className="pt-12 border-t border-border mt-12 text-text-muted">
         <a href="/notes" className="text-sm no-underline hover:underline">← Back to notes</a>
