@@ -15,9 +15,9 @@ export const metadata: Metadata = {
         url: `/notes/${slug}`,
         images: [
             {
-                url: `/api/og?title=${encodeURIComponent(note.title)}&date=${encodeURIComponent(note.date)}`,
-                width: 1200,
-                height: 630,
+                url: "/og-8-stages-ai-programming.jpg",
+                width: 1024,
+                height: 1024,
                 alt: note.title,
             },
         ],
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: note.title,
         description: note.excerpt,
-        images: [`/api/og?title=${encodeURIComponent(note.title)}&date=${encodeURIComponent(note.date)}`],
+        images: ["/og-8-stages-ai-programming.jpg"],
     },
 };
 
