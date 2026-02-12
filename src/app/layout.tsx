@@ -1,93 +1,48 @@
-"use client";
-
-import { useState } from "react";
+import type { Metadata } from "next";
 import "./globals.css";
-import Sidebar from "./components/Sidebar";
-import Minimap from "./components/Minimap";
-import { TabProvider, useTabs } from "./context/TabContext";
+import EditorLayout from "./components/EditorLayout";
 
-function EditorLayout({ children }: { children: React.ReactNode }) {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const { tabs, activePath, closeTab, openTab } = useTabs();
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://danny-blog-ndangnguyen.vercel.app";
 
-  const isPhotoPage = activePath.startsWith("/photos");
-
-  return (
-    <div className="editor-layout bg-[#111]">
-      <Sidebar mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
-
-      <div className="flex-1 flex flex-col h-full overflow-hidden">
-        {/* Editor Tabs Header */}
-        <header className="h-10 border-b border-border flex items-center bg-[#121212] overflow-x-auto no-scrollbar">
-          <button
-            onClick={() => setMobileOpen(true)}
-            className="md:hidden px-3 h-full hover:bg-white/10 transition-colors border-r border-border"
-          >
-            📁
-          </button>
-
-          {tabs.map((tab) => (
-            <div
-              key={tab.path}
-              onClick={() => openTab(tab)}
-              className={`h-full px-4 flex items-center gap-3 text-[11px] border-r border-border cursor-pointer transition-colors group whitespace-nowrap ${activePath === tab.path
-                ? "bg-[#111] border-t-2 border-t-accent font-bold text-white"
-                : "opacity-40 hover:opacity-100 hover:bg-white/5"
-                }`}
-            >
-              <span>{tab.title}</span>
-              <span
-                onClick={(e) => {
-                  e.stopPropagation();
-                  closeTab(tab.path);
-                }}
-                className="opacity-0 group-hover:opacity-50 hover:!opacity-100 px-1"
-              >
-                ×
-              </span>
-            </div>
-          ))}
-        </header>
-
-        <div className="main-content flex-1 overflow-auto custom-scrollbar relative">
-          {!isPhotoPage && (
-            <div className="line-numbers hidden sm:block border-r border-border/50">
-              {Array.from({ length: 100 }).map((_, i) => (
-                <div key={i} className="pr-3 leading-6 text-[#444]">{i + 1}</div>
-              ))}
-            </div>
-          )}
-
-          <div className={`content-area ${isPhotoPage ? "content-area-photos" : ""}`}>
-            {children}
-          </div>
-
-          {!isPhotoPage && <Minimap scrollContainerSelector=".main-content" />}
-        </div>
-
-        <footer className="status-bar border-t border-border flex justify-between items-center px-4 bg-[#121212] text-[#555] uppercase tracking-widest font-bold">
-          <div className="flex gap-6 text-[9px] sm:text-[10px]">
-            <span className="text-white/80">● MAIN</span>
-            <span className="hidden xs:inline">UTF-8</span>
-            <span className="hidden xs:inline">TypeScript</span>
-          </div>
-          <div className="flex gap-4 text-[9px] sm:text-[10px]">
-            <span className="hidden sm:inline">Line 1, Col 1</span>
-            <span className="font-mono">{new Date().toLocaleDateString()}</span>
-          </div>
-        </footer>
-      </div>
-    </div>
-  );
-}
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Danny Blog — Senior Software Engineer",
+    template: "%s | Danny Blog",
+  },
+  description:
+    "Blog cá nhân của Dang Nguyen (Danny) — Senior Software Engineer, Flutter Specialist, Web Architect. Chia sẻ kiến thức về Flutter, Clean Architecture, Design Patterns và AI Programming.",
+  openGraph: {
+    type: "website",
+    locale: "vi_VN",
+    url: SITE_URL,
+    siteName: "Danny Blog",
+    title: "Danny Blog — Senior Software Engineer",
+    description:
+      "Blog cá nhân của Dang Nguyen (Danny) — Senior Software Engineer, Flutter Specialist, Web Architect.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Danny Blog",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Danny Blog — Senior Software Engineer",
+    description:
+      "Blog cá nhân của Dang Nguyen (Danny) — Senior Software Engineer, Flutter Specialist, Web Architect.",
+    images: ["/og-image.png"],
+  },
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark">
       <body className="antialiased selection:bg-white selection:text-black">
-        <TabProvider>
-          <EditorLayout>{children}</EditorLayout>
-        </TabProvider>
+        <EditorLayout>{children}</EditorLayout>
       </body>
     </html>
   );
