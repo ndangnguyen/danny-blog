@@ -7,6 +7,13 @@ export interface NoteData {
 
 export const notes: NoteData[] = [
     {
+        title: "Claudible - Hướng Dẫn Sử Dụng Claude API Proxy",
+        date: "Feb 13, 2026",
+        slug: "claudible-huong-dan-su-dung",
+        excerpt:
+            "Hướng dẫn chi tiết cách cấu hình và sử dụng Claudible để truy cập các model Claude (Sonnet, Opus, Haiku) trong OpenClaw.",
+    },
+    {
         title: "Tám Giai Đoạn Tiến Hóa Của Lập Trình Viên Với AI",
         date: "Feb 12, 2026",
         slug: "8-stages-ai-programming",

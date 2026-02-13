@@ -1,0 +1,107 @@
+# Claudible - Hướng Dẫn Sử Dụng Claude API Proxy
+
+Claudible là dịch vụ proxy API cho Claude của Anthropic, giúp người dùng truy cập các mô hình Claude (Sonnet, Opus, Haiku) một cách dễ dàng thông qua một endpoint thống nhất. Dịch vụ này đặc biệt hữu ích khi tích hợp vào các ứng dụng AI như OpenClaw.
+
+## Claudible Là Gì?
+
+Claudible hoạt động như một lớp trung gian (proxy) giữa ứng dụng của bạn và API của Anthropic. Thay vì gọi trực tiếp đến `api.anthropic.com`, bạn gọi đến endpoint của Claudible với API key được cung cấp.
+
+**Ưu điểm chính:**
+- **Đơn giản hóa việc quản lý API key:** Một key duy nhất cho nhiều mô hình.
+- **Hỗ trợ đầy đủ các model Claude:** Từ Haiku (nhanh, rẻ) đến Opus (mạnh nhất).
+- **Tương thích OpenAI-style API:** Dễ tích hợp với các framework có sẵn.
+- **Theo dõi usage:** Kiểm soát chi phí và lượng token sử dụng.
+
+## Các Model Hỗ Trợ
+
+- **claudible/claude-haiku-3.5:** Nhanh, tiết kiệm, phù hợp cho các tác vụ đơn giản.
+- **claudible/claude-sonnet-4.5:** Cân bằng giữa hiệu suất và chi phí, tốt cho coding.
+- **claudible/claude-opus-4.5:** Mạnh nhất, reasoning phức tạp, phân tích sâu.
+
+## Cách Cấu Hình Trong OpenClaw
+
+### Bước 1: Thêm Provider vào models.json
+
+Mở file `~/.openclaw/models.json` (hoặc tạo mới nếu chưa có) và thêm cấu hình:
+
+```json
+{
+  "providers": [
+    {
+      "name": "claudible",
+      "baseUrl": "https://api.claudible.com/v1",
+      "apiKey": "sk-xxx-your-api-key-here"
+    }
+  ]
+}
+```
+
+### Bước 2: Khai Báo Các Model
+
+Tiếp tục thêm vào phần `models`:
+
+```json
+{
+  "models": [
+    {
+      "id": "claudible/claude-sonnet-4.5",
+      "provider": "claudible",
+      "model": "claude-sonnet-4-5-20250514"
+    },
+    {
+      "id": "claudible/claude-opus-4.5",
+      "provider": "claudible",
+      "model": "claude-opus-4-5-20250514"
+    },
+    {
+      "id": "claudible/claude-haiku-3.5",
+      "provider": "claudible",
+      "model": "claude-3-5-haiku-20241022"
+    }
+  ]
+}
+```
+
+### Bước 3: Đặt Default Model
+
+Trong file `openclaw.json`, đặt model mặc định:
+
+```json
+{
+  "model": "claudible/claude-sonnet-4.5"
+}
+```
+
+### Bước 4: Khởi động lại OpenClaw
+
+```bash
+openclaw gateway restart
+```
+
+## Chuyển Đổi Model Trong Phiên Chat
+
+Khi đang chat với OpenClaw, bạn có thể yêu cầu chuyển model bất cứ lúc nào:
+
+- "Đổi sang opus cho anh" → Chuyển sang Claude Opus 4.5
+- "Dùng haiku đi" → Chuyển sang Claude Haiku 3.5 (nhanh hơn)
+- "Chuyển về sonnet" → Quay lại Claude Sonnet 4.5
+
+## Kiểm Tra Trạng Thái
+
+Sử dụng lệnh `/status` trong chat để xem model hiện tại đang được sử dụng, token đã dùng, và các thông tin khác.
+
+## Khi Nào Nên Dùng Model Nào?
+
+- **Haiku:** Chat nhanh, trả lời câu hỏi đơn giản, draft nội dung.
+- **Sonnet:** Coding, debug, viết bài, phân tích trung bình.
+- **Opus:** Reasoning phức tạp, logic nhiều bước, phân tích sâu, creative writing cao cấp.
+
+## Lưu Ý Quan Trọng
+
+- API key Claudible cần được bảo mật, không commit vào git.
+- Chi phí tính theo token, Opus đắt hơn Sonnet khoảng 5-10x.
+- Context window của Opus 4.5 là 200k tokens.
+
+---
+
+Với Claudible, việc sử dụng các mô hình Claude trở nên đơn giản và linh hoạt hơn bao giờ hết. Chỉ cần một vài bước cấu hình, bạn đã có thể tận dụng sức mạnh của Claude trong mọi dự án!
