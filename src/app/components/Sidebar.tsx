@@ -72,12 +72,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
   ];
 
   const notes = [
-    {
-      title: "Claudible - Hướng Dẫn Sử Dụng Claude API Proxy",
-      date: "February 13",
-      slug: "claudible-huong-dan-su-dung",
-      excerpt: "Hướng dẫn chi tiết cách cấu hình và sử dụng Claudible để truy cập các model Claude (Sonnet, Opus, Haiku) trong OpenClaw."
-    },
+    { title: "claudible-huong-dan-su-dung.md", slug: "claudible-huong-dan-su-dung", path: "/notes/claudible-huong-dan-su-dung" },
     { title: "8-stages-ai-programming.md", slug: "8-stages-ai-programming", path: "/notes/8-stages-ai-programming" },
     { title: "bi-blog-2026-02-08.md", slug: "bi-blog-2026-02-08", path: "/notes/bi-blog-2026-02-08" },
     { title: "solid-principles.md", slug: "solid-principles", path: "/notes/solid-principles" },

@@ -38,104 +38,68 @@ export default function ClaudibleHuongDanSuDungNote() {
 
         <p>Mở file <code>~/.openclaw/models.json</code> (hoặc tạo mới nếu chưa có) và thêm cấu hình:</p>
 
-        <p><code></code>`json</p>
-
-        <p>{</p>
-
-        <p>"providers": [</p>
-
-        <p>{</p>
-
-        <p>"name": "claudible",</p>
-
-        <p>"baseUrl": "https://api.claudible.com/v1",</p>
-
-        <p>"apiKey": "sk-xxx-your-api-key-here"</p>
-
-        <p>}</p>
-
-        <p>]</p>
-
-        <p>}</p>
-
-        <p><code></code>`</p>
+        <pre className="bg-black/50 p-4 rounded-lg overflow-x-auto text-sm">
+{`{
+  "providers": [
+    {
+      "name": "claudible",
+      "baseUrl": "https://api.claudible.com/v1",
+      "apiKey": "sk-xxx-your-api-key-here"
+    }
+  ]
+}`}
+        </pre>
 
         <h3>Bước 2: Khai Báo Các Model</h3>
 
         <p>Tiếp tục thêm vào phần <code>models</code>:</p>
 
-        <p><code></code>`json</p>
-
-        <p>{</p>
-
-        <p>"models": [</p>
-
-        <p>{</p>
-
-        <p>"id": "claudible/claude-sonnet-4.5",</p>
-
-        <p>"provider": "claudible",</p>
-
-        <p>"model": "claude-sonnet-4-5-20250514"</p>
-
-        <p>},</p>
-
-        <p>{</p>
-
-        <p>"id": "claudible/claude-opus-4.5",</p>
-
-        <p>"provider": "claudible",</p>
-
-        <p>"model": "claude-opus-4-5-20250514"</p>
-
-        <p>},</p>
-
-        <p>{</p>
-
-        <p>"id": "claudible/claude-haiku-3.5",</p>
-
-        <p>"provider": "claudible",</p>
-
-        <p>"model": "claude-3-5-haiku-20241022"</p>
-
-        <p>}</p>
-
-        <p>]</p>
-
-        <p>}</p>
-
-        <p><code></code>`</p>
+        <pre className="bg-black/50 p-4 rounded-lg overflow-x-auto text-sm">
+{`{
+  "models": [
+    {
+      "id": "claudible/claude-sonnet-4.5",
+      "provider": "claudible",
+      "model": "claude-sonnet-4-5-20250514"
+    },
+    {
+      "id": "claudible/claude-opus-4.5",
+      "provider": "claudible",
+      "model": "claude-opus-4-5-20250514"
+    },
+    {
+      "id": "claudible/claude-haiku-3.5",
+      "provider": "claudible",
+      "model": "claude-3-5-haiku-20241022"
+    }
+  ]
+}`}
+        </pre>
 
         <h3>Bước 3: Đặt Default Model</h3>
 
         <p>Trong file <code>openclaw.json</code>, đặt model mặc định:</p>
 
-        <p><code></code>`json</p>
-
-        <p>{</p>
-
-        <p>"model": "claudible/claude-sonnet-4.5"</p>
-
-        <p>}</p>
-
-        <p><code></code>`</p>
+        <pre className="bg-black/50 p-4 rounded-lg overflow-x-auto text-sm">
+{`{
+  "model": "claudible/claude-sonnet-4.5"
+}`}
+        </pre>
 
         <h3>Bước 4: Khởi động lại OpenClaw</h3>
 
-        <p><code></code>`bash</p>
-
-        <p>openclaw gateway restart</p>
-
-        <p><code></code>`</p>
+        <pre className="bg-black/50 p-4 rounded-lg overflow-x-auto text-sm">
+{`openclaw gateway restart`}
+        </pre>
 
         <h2>Chuyển Đổi Model Trong Phiên Chat</h2>
 
         <p>Khi đang chat với OpenClaw, bạn có thể yêu cầu chuyển model bất cứ lúc nào:</p>
 
         <ul className="list-disc pl-6 space-y-4">
-          <li>"Đổi sang opus cho anh" → Chuyển sang Claude Opus 4.5</li>
-          <li>"Dùng haiku đi" → Chuyển sang Claude Haiku 3.5 (nhanh hơn)</li>
-          <li>"Chuyển về sonnet" → Quay lại Claude Sonnet 4.5</li>
+          <li>&quot;Đổi sang opus cho anh&quot; → Chuyển sang Claude Opus 4.5</li>
+          <li>&quot;Dùng haiku đi&quot; → Chuyển sang Claude Haiku 3.5 (nhanh hơn)</li>
+          <li>&quot;Chuyển về sonnet&quot; → Quay lại Claude Sonnet 4.5</li>
         </ul>
 
         <h2>Kiểm Tra Trạng Thái</h2>
