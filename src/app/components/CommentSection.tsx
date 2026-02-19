@@ -65,7 +65,9 @@ export default function CommentSection({ slug }: { slug: string }) {
         if (savedName) setName(savedName);
     }, []);
 
-    // Fetch comments from API
+    const localKey = `blog-comments-${slug}`;
+
+    // Fetch comments from API, fallback to localStorage
     const fetchComments = useCallback(async () => {
         try {
             setError(null);
@@ -73,12 +75,22 @@ export default function CommentSection({ slug }: { slug: string }) {
             if (!res.ok) throw new Error("Failed to fetch");
             const data = await res.json();
             setComments(data);
+            localStorage.setItem(localKey, JSON.stringify(data));
         } catch {
-            setError("Không thể tải bình luận. Vui lòng thử lại.");
+            const local = localStorage.getItem(localKey);
+            if (local) {
+                try {
+                    setComments(JSON.parse(local));
+                } catch {
+                    setComments([]);
+                }
+            } else {
+                setComments([]);
+            }
         } finally {
             setIsLoading(false);
         }
-    }, [slug]);
+    }, [slug, localKey]);
 
     useEffect(() => {
         fetchComments();
@@ -128,9 +140,11 @@ export default function CommentSection({ slug }: { slug: string }) {
 
             if (!res.ok) throw new Error("Failed to post");
         } catch {
-            // Revert optimistic update
-            setComments((prev) => prev.filter((c) => c.id !== commentId));
-            setError("Không thể gửi bình luận. Vui lòng thử lại.");
+            // Fallback: keep optimistic comment in localStorage
+            setComments((prev) => {
+                localStorage.setItem(localKey, JSON.stringify(prev));
+                return prev;
+            });
         } finally {
             setIsSubmitting(false);
             setTimeout(() => setJustPosted(null), 2000);

@@ -1,3 +1,5 @@
+import CommentSection from "../../components/CommentSection";
+
 export default function ClaudibleHuongDanSuDungNote() {
   return (
     <div className="space-y-8 animate-in fade-in duration-700">
@@ -146,6 +148,8 @@ export default function ClaudibleHuongDanSuDungNote() {
 
         <p>Với Claudible, việc sử dụng các mô hình Claude trở nên đơn giản và linh hoạt hơn bao giờ hết. Chỉ cần một vài bước cấu hình, bạn đã có thể tận dụng sức mạnh của Claude trong mọi dự án!</p>
       </div>
+
+      <CommentSection slug="claudible-huong-dan-su-dung" />
 
       <footer className="pt-12 border-t border-border mt-12 text-text-muted">
         <a href="/notes" className="text-sm no-underline hover:underline">← Back to notes</a>
