@@ -7,6 +7,13 @@ export interface NoteData {
 
 export const notes: NoteData[] = [
     {
+        title: "OpenClaw + Codex CLI: Hướng Dẫn Tích Hợp Đầy Đủ",
+        date: "Feb 19, 2026",
+        slug: "openclaw-codex-huong-dan-tich-hop",
+        excerpt:
+            "Tổng hợp thực chiến cách tích hợp OpenClaw với Codex CLI để nhận task qua chat, tự sửa code, chạy test và trả kết quả tự động.",
+    },
+    {
         title: "Claudible - Hướng Dẫn Sử Dụng Claude API Proxy",
         date: "Feb 13, 2026",
         slug: "claudible-huong-dan-su-dung",

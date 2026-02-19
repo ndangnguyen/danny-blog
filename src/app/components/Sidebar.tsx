@@ -72,6 +72,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
   ];
 
   const notes = [
+    { title: "openclaw-codex-huong-dan-tich-hop.md", slug: "openclaw-codex-huong-dan-tich-hop", path: "/notes/openclaw-codex-huong-dan-tich-hop" },
     { title: "claudible-huong-dan-su-dung.md", slug: "claudible-huong-dan-su-dung", path: "/notes/claudible-huong-dan-su-dung" },
     { title: "8-stages-ai-programming.md", slug: "8-stages-ai-programming", path: "/notes/8-stages-ai-programming" },
     { title: "bi-blog-2026-02-08.md", slug: "bi-blog-2026-02-08", path: "/notes/bi-blog-2026-02-08" },

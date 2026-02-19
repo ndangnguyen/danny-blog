@@ -1,0 +1,92 @@
+# OpenClaw + Codex CLI: Hướng Dẫn Tích Hợp Đầy Đủ
+
+Bài viết này tổng hợp lại nội dung chính từ SafeClaw về cách chạy OpenClaw cùng Codex CLI để biến bot chat thành một coding agent thực chiến: đọc codebase, sửa file, chạy test, và trả kết quả trực tiếp về Telegram/Discord/WhatsApp.
+
+Nguồn tham khảo gốc: https://safeclaw.io/blog/openclaw-codex
+
+## OpenAI Codex CLI là gì?
+
+Codex CLI là coding agent chạy trong terminal, khác hoàn toàn với Codex model đời cũ. Agent mới có thể:
+- Đọc nhiều file trong project
+- Lập kế hoạch sửa code nhiều bước
+- Chạy lệnh shell và test
+- Tự lặp lại tới khi pass
+- Tạo commit/PR
+
+Điểm mạnh là khả năng tự vận hành theo workflow, phù hợp để OpenClaw điều phối từ xa qua chat.
+
+## OpenClaw kết hợp Codex hoạt động ra sao?
+
+Luồng cơ bản:
+- Bạn nhắn yêu cầu coding trong chat
+- OpenClaw nhận task và gọi skill coding-agent
+- Skill spawn `codex exec "<task>"` trong đúng thư mục dự án
+- Codex tự phân tích, sửa lỗi, chạy test
+- OpenClaw stream kết quả ngược lại cho bạn
+
+Nhờ đó bạn có thể giao việc khi không ngồi trước máy, nhưng vẫn theo dõi được log và thay đổi.
+
+## Cài Codex CLI
+
+Có thể cài bằng npm:
+- `npm install -g @openai/codex`
+
+Sau đó kiểm tra version:
+- `codex --version`
+
+Đăng nhập:
+- `codex login`
+
+## Cấu hình khuyến nghị
+
+File cấu hình nằm ở `~/.codex/config.toml`.
+
+Cấu hình an toàn và thực dụng khi chạy với OpenClaw:
+- Model: `gpt-5.3-codex`
+- Sandbox: `workspace-write`
+- Approval policy: `on-request` hoặc `never` (nếu bạn muốn full tự động)
+- Reasoning: `high`
+
+Ngoài ra nên có AGENTS.md trong từng repo để agent hiểu chuẩn dự án:
+- Lệnh test/lint
+- Convention đặt tên
+- Yêu cầu chạy test sau khi sửa
+- Boundary kỹ thuật cần tuân thủ
+
+## Khi nào nên dùng Codex với OpenClaw?
+
+Rất phù hợp cho:
+- Fix bug theo stack trace
+- Viết hoặc mở rộng test coverage
+- Refactor module nhiều file
+- Dọn lint/format theo chuẩn team
+- Tự động xử lý task lặp lại trong CI/CD
+
+## Bảo mật khi chạy agent tự động
+
+Khi cho agent chạy shell, cần có lớp phòng thủ:
+- Giới hạn bằng sandbox `workspace-write`
+- Chỉ cho phép thao tác trong repo
+- Giữ quyền review trước khi merge PR
+- Theo dõi hoạt động bằng SafeClaw nếu chạy production
+
+Kể cả khi auto mode, vẫn nên review output ở mức kiến trúc và security trước khi merge vào nhánh chính.
+
+## Codex CLI hay Claude Code?
+
+Không nhất thiết chọn 1 trong 2. OpenClaw có thể điều phối cả hai:
+- Dùng Codex cho workflow cần độ ổn định cao và chạy tự động
+- Dùng Claude Code cho các task cần tương tác nhanh, chỉnh UI, iterate liên tục
+
+Tùy dạng việc mà gán coding agent phù hợp sẽ tối ưu hơn.
+
+## Kết luận
+
+OpenClaw + Codex CLI là mô hình mạnh cho cá nhân và team nhỏ: điều phối từ chat, chạy task trên server thật, và trả kết quả có thể audit được.
+
+Nếu bạn đang muốn chuyển từ "AI hỗ trợ gõ code" sang "AI thực sự thực thi workflow", đây là stack đáng triển khai ngay.
+
+---
+
+Nguồn gốc bài viết và nội dung tham khảo chi tiết:
+https://safeclaw.io/blog/openclaw-codex
